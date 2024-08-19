@@ -118,7 +118,7 @@ namespace SkillsReturns
 
             // This adds our skilldef. If you don't do this, the skill will not work.
             ContentAddition.AddSkillDef(mySkillDef);
-
+            ContentAddition.AddEntityState(typeof(SkillsReturns.CommandoKnifeStates.SimpleBullet), out bool wasAdded);
             // Now we add our skill to one of the survivor's skill families
             // You can change component.primary to component.secondary, component.utility and component.special
             SkillLocator skillLocator = commandoBodyPrefab.GetComponent<SkillLocator>();
