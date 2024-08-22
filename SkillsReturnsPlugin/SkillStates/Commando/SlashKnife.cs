@@ -47,7 +47,7 @@ namespace SkillsReturns.SkillStates.Commando
                     attackerFiltering = AttackerFiltering.NeverHitSelf
 
                 };
-                ba.AddModdedDamageType(SkillsReturnsPlugin.CommandoKnifeDamage);
+                ba.AddModdedDamageType(SkillSetup.Commando.CommandoKnife.knifeDamageType);
                 var result = ba.Fire();
 
                 if (characterMotor && !characterMotor.isGrounded && result.hitCount > 0)
