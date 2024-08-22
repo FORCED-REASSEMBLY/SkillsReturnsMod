@@ -10,7 +10,7 @@ namespace SkillsReturns.SkillStates.Commando
     {
         public static GameObject biteEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/LemurianBiteTrail.prefab").WaitForCompletion();
 
-        public float baseDuration = 0.5f;
+        public static float baseDuration = 0.5f;
         private float duration;
 
         //OnEnter() runs once at the start of the skill
