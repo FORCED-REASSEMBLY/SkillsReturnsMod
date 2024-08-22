@@ -16,6 +16,9 @@ namespace SkillsReturns
             using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SkillsReturns.skillsreturnsbundle"))
             {
                 mainAssetBundle = AssetBundle.LoadFromStream(manifestResourceStream);
+
+                //Async method seems to have issues, so I'm using this.
+                ShaderSwapper.ShaderSwapper.UpgradeStubbedShaders(mainAssetBundle);
             }
         }
     }
