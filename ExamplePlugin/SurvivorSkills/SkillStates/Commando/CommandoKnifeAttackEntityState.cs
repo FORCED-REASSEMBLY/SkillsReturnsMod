@@ -45,7 +45,7 @@ namespace SkillsReturns.CommandoKnifeStates
                     baseDamage = damageStat * 3.6f,
                     position = base.characterBody.corePosition,
                     teamIndex = base.GetTeam(),
-                    radius = 8,
+                    radius = 10,
                     falloffModel = BlastAttack.FalloffModel.None,
                     baseForce = 0f,
                     bonusForce = Vector3.zero,
@@ -86,7 +86,7 @@ namespace SkillsReturns.CommandoKnifeStates
         //GetMinimumInterruptPriority() returns the InterruptPriority required to interrupt this skill
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.PrioritySkill;
         }
     }
 }

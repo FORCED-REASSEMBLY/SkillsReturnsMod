@@ -99,12 +99,12 @@ namespace SkillsReturns
             mySkillDef.activationState = new SerializableEntityStateType(typeof(SkillsReturns.CommandoKnifeStates.SimpleBullet));
             mySkillDef.activationStateMachineName = "Weapon";
             mySkillDef.baseMaxStock = 1;
-            mySkillDef.baseRechargeInterval = 5f;
+            mySkillDef.baseRechargeInterval = 3f;
             mySkillDef.beginSkillCooldownOnSkillEnd = true;
             mySkillDef.canceledFromSprinting = false;
             mySkillDef.cancelSprintingOnActivation = true;
             mySkillDef.fullRestockOnAssign = true;
-            mySkillDef.interruptPriority = InterruptPriority.Any;
+            mySkillDef.interruptPriority = InterruptPriority.Skill;
             mySkillDef.isCombatSkill = true;
             mySkillDef.mustKeyPress = false;
             mySkillDef.rechargeStock = 1;
