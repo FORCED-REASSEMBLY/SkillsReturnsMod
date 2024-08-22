@@ -14,7 +14,6 @@ namespace SkillsReturns.SkillStates.Commando
         private float duration;
 
         //OnEnter() runs once at the start of the skill
-        //All we do here is create a BulletAttack and fire it
         public override void OnEnter()
         {
             base.OnEnter();

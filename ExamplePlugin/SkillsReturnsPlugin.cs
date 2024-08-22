@@ -11,8 +11,6 @@ using System.Reflection;
 using UnityEngine.Networking;
 using MonoMod.Cil;
 using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System;
 using SkillsReturns.SkillStates.Commando;
 
 namespace SkillsReturns
