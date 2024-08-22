@@ -328,3 +328,7 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/SkillsReturnsUnity/AssetBundles/StandaloneWindows/skillsreturnsbundle
+/SkillsReturnsUnity/AssetBundles/StandaloneWindows/skillsreturnsbundle.manifest
+/SkillsReturnsUnity/AssetBundles/StandaloneWindows/StandaloneWindows
+/SkillsReturnsUnity/AssetBundles/StandaloneWindows/StandaloneWindows.manifest
