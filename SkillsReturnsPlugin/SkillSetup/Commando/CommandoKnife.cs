@@ -22,12 +22,13 @@ namespace SkillsReturns.SkillSetup.Commando
 
         public override SkillFamily SkillFamily => Addressables.LoadAssetAsync<SkillFamily>("RoR2/Base/Commando/CommandoBodySecondaryFamily.asset").WaitForCompletion();
 
-        public static DamageAPI.ModdedDamageType knifeDamageType = DamageAPI.ReserveDamageType();
+        public static DamageAPI.ModdedDamageType knifeDamageType;
         public static BuffDef knifeDebuff;
 
         protected override void CreateAssets()
         {
             if (knifeDebuff) return;
+            knifeDamageType = DamageAPI.ReserveDamageType();
             knifeDebuff = SkillsReturns.Utilities.CreateBuffDef("CommandoKnifeDebuff", false, false, true, new Color32(81, 0, 0, 255), Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Bandit2/texBuffSuperBleedingIcon.tif").WaitForCompletion());
         }
 
