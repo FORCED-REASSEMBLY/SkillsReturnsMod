@@ -13,19 +13,20 @@ using MonoMod.Cil;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
+using SkillsReturns.SkillStates.Commando;
 
 namespace SkillsReturns
 {
     [BepInDependency(R2API.ContentManagement.R2APIContentManager.PluginGUID)]
+    [BepInDependency(R2API.DamageAPI.PluginGUID)]
+    [BepInDependency(R2API.RecalculateStatsAPI.PluginGUID)]
     [BepInDependency(LanguageAPI.PluginGUID)]
 
     [BepInPlugin(
         "com.Forced_Reassembly.SkillsReturns",
         "Skills Returns",
-        "1.0.0")]
+        "1.1.0")]
     public class SkillsReturnsPlugin : BaseUnityPlugin
-
-
     {
         private void Awake()
          {
@@ -89,18 +90,18 @@ namespace SkillsReturns
             // We use LanguageAPI to add strings to the game, in the form of tokens
             // Please note that it is instead recommended that you use a language file.
             // More info in https://risk-of-thunder.github.io/R2Wiki/Mod-Creation/Assets/Localization/
-            LanguageAPI.Add("COMMANDO_PRIMARY_SIMPLEBULLET_NAME", "Combat Knife");
-            LanguageAPI.Add("COMMANDO_PRIMARY_SIMPLEBULLET_DESCRIPTION", $"Slash enemies for <style=cIsDamage>150% damage</style>, wounding enemies. Wounded enemies take <style=cIsDamage>50% damage</style> more damage");
+            LanguageAPI.Add("COMMANDO_SECONDARY_SLASHKNIFE_NAME", "Combat Knife");
+            LanguageAPI.Add("COMMANDO_SECONDARY_SLASHKNIFE_DESCRIPTION", $"Slash enemies for <style=cIsDamage>360% damage</style>, wounding and <style=cIsDamage>stunning</style> enemies. Wounded enemies take <style=cIsDamage>50% more damage</style>.");
 
             // Now we must create a SkillDef
             SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
 
             //Check step 2 for the code of the CustomSkillsTutorial.MyEntityStates.SimpleBulletAttack class
-            mySkillDef.activationState = new SerializableEntityStateType(typeof(SkillsReturns.CommandoKnifeStates.SimpleBullet));
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(SlashKnife));
             mySkillDef.activationStateMachineName = "Weapon";
             mySkillDef.baseMaxStock = 1;
             mySkillDef.baseRechargeInterval = 3f;
-            mySkillDef.beginSkillCooldownOnSkillEnd = true;
+            mySkillDef.beginSkillCooldownOnSkillEnd = false;
             mySkillDef.canceledFromSprinting = false;
             mySkillDef.cancelSprintingOnActivation = true;
             mySkillDef.fullRestockOnAssign = true;
@@ -112,13 +113,14 @@ namespace SkillsReturns
             mySkillDef.stockToConsume = 1;
             // For the skill icon, you will have to load a Sprite from your own AssetBundle
             mySkillDef.icon = mainAssetBundle.LoadAsset<Sprite>("CombatKnifeIcon");
-            mySkillDef.skillDescriptionToken = "Slash enemies for <style=cIsDamage>360% damage</style>, wounding and <style=cIsDamage>stunning</style> enemies. Wounded enemies take <style=cIsDamage>50% more damage</style>.";
-            mySkillDef.skillName = "Combat Knife";
-            mySkillDef.skillNameToken = "Combat Knife";
+            mySkillDef.skillDescriptionToken = "COMMANDO_SECONDARY_SLASHKNIFE_DESCRIPTION";
+            mySkillDef.skillName = "COMMANDO_SECONDARY_SLASHKNIFE_NAME";
+            mySkillDef.skillNameToken = "COMMANDO_SECONDARY_SLASHKNIFE_NAME";
+            (mySkillDef as ScriptableObject).name = mySkillDef.skillName;
 
             // This adds our skilldef. If you don't do this, the skill will not work.
             ContentAddition.AddSkillDef(mySkillDef);
-            ContentAddition.AddEntityState(typeof(SkillsReturns.CommandoKnifeStates.SimpleBullet), out bool wasAdded);
+            ContentAddition.AddEntityState(typeof(SlashKnife), out bool wasAdded);
             // Now we add our skill to one of the survivor's skill families
             // You can change component.primary to component.secondary, component.utility and component.special
             SkillLocator skillLocator = commandoBodyPrefab.GetComponent<SkillLocator>();

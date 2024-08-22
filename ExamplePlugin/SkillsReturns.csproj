@@ -14,12 +14,10 @@
 
   <ItemGroup>
     <None Remove="skillsreturnsbundle" />
-    <None Remove="SurvivorSkills\Skillicons\skillsreturnsbundle" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="skillsreturnsbundle" />
-    <EmbeddedResource Include="SurvivorSkills\Skillicons\skillsreturnsbundle" />
   </ItemGroup>
 
   <ItemGroup>
