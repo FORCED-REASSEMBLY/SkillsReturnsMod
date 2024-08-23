@@ -10,6 +10,7 @@ namespace SkillsReturns
     [BepInDependency(R2API.DamageAPI.PluginGUID)]
     [BepInDependency(R2API.RecalculateStatsAPI.PluginGUID)]
     [BepInDependency(LanguageAPI.PluginGUID)]
+    [BepInDependency(PrefabAPI.PluginGUID)]
 
     [BepInPlugin(
         "com.Forced_Reassembly.SkillsReturns",

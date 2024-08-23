@@ -14,7 +14,7 @@ namespace SkillsReturns.SkillSetup.Commando
 {
     public class CommandoKnife : SkillBase<CommandoKnife>
     {
-        public override string SkillName => "Combat Knife";
+        public override string SkillName => "Commando - Combat Knife";
 
         public override string SkillLangTokenName => "COMMANDO_SECONDARY_SKILLSRETURNS_SLASHKNIFE_NAME";
 
@@ -118,8 +118,7 @@ namespace SkillsReturns.SkillSetup.Commando
 
         protected override void RegisterStates()
         {
-            bool wasAdded;  //variable is unused, simply present because syntax demands it.
-            ContentAddition.AddEntityState(typeof(SlashKnife), out wasAdded);
+            ContentAddition.AddEntityState(typeof(SlashKnife), out bool wasAdded);
         }
     }
 }
