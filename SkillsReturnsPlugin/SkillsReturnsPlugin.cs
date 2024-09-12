@@ -7,10 +7,12 @@ using System.Reflection;
 namespace SkillsReturns
 {
     [BepInDependency(R2API.ContentManagement.R2APIContentManager.PluginGUID)]
-    [BepInDependency(R2API.DamageAPI.PluginGUID)]
-    [BepInDependency(R2API.RecalculateStatsAPI.PluginGUID)]
+    [BepInDependency(DamageAPI.PluginGUID)]
+    [BepInDependency(RecalculateStatsAPI.PluginGUID)]
     [BepInDependency(LanguageAPI.PluginGUID)]
     [BepInDependency(PrefabAPI.PluginGUID)]
+    [BepInDependency(SoundAPI.PluginGUID)]
+    [BepInDependency(R2API.R2API.PluginGUID)]
 
     [BepInPlugin(
         "com.Forced_Reassembly.SkillsReturns",
