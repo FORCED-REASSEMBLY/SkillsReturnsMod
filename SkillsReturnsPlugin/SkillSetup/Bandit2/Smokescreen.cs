@@ -4,6 +4,8 @@ using R2API;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
+using SkillsReturns.SkillStates.Bandit2.FlashBang;
+using SkillsReturns.SkillStates.Commando;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -12,6 +14,19 @@ namespace SkillsReturns.SkillSetup.Bandit2
 {
     public class Smokescreen : SkillBase<Smokescreen>
     {
+        public override string SkillName => "Bandit - Flashbang";
+
+        public override string SkillLangTokenName => "BANDIT2_UTILITY_SKILLSRETURNS_FLASHBANG_NAME";
+
+        public override string SkillLangTokenDesc => "BANDIT2_UTILITY_SKILLSRETURNS_FLASHBANG_DESCRIPTION";
+
+        public override SkillFamily SkillFamily => Addressables.LoadAssetAsync<SkillFamily>("RoR2/Base/Bandit2/Bandit2BodyUtilityFamily.asset").WaitForCompletion();
+
+        protected override void RegisterStates()
+        {
+            ContentAddition.AddEntityState(typeof(ThrowFlashbang), out bool wasAdded);
+        }
+
         private void BuildProjectile()
         {
             //These 2 variables are used during setup to control some stuff
@@ -121,7 +136,7 @@ namespace SkillsReturns.SkillSetup.Bandit2
             smokeProjectileImpact.blastProcCoefficient = 1;
             smokeProjectileImpact.fireChildren = true;
             smokeProjectileImpact.childrenCount = 1;
-            smokeProjectileImpact.childrenProjectilePrefab = smokeCloud;   //Tells it to spawn our smoke cloud projectile when this triggers
+            smokeProjectileImpact.childrenProjectilePrefab = smokeProjectilePrefab;   //Tells it to spawn our smoke cloud projectile when this triggers
             smokeProjectileImpact.childrenDamageCoefficient = 0;
 
             //Clone Bandit2's smokescreen effect and make the sound a part of the effect so it plays online
@@ -134,11 +149,43 @@ namespace SkillsReturns.SkillSetup.Bandit2
             ContentAddition.AddProjectile(smokeProjectilePrefab);
             ContentAddition.AddProjectile(smokeCloud);
 
-            //Set projectile prefab for skill state
-            //TODO: IMPLEMENT
-            //SkillsReturns.SkillStates.Bandit2.ThrowSmokescreen.projectilePrefab = smokeProjectilePrefab;
+            
+            ThrowFlashbang.projectilePrefab = smokeProjectilePrefab;
+        }
+
+        protected override void CreateSkillDef()
+        {
+            base.CreateSkillDef();
+            skillDef.activationState = new SerializableEntityStateType(typeof(ThrowFlashbang));
+            skillDef.activationStateMachineName = "Weapon";
+            skillDef.baseMaxStock = 1;
+            skillDef.baseRechargeInterval = 15f;
+            skillDef.beginSkillCooldownOnSkillEnd = false;
+            skillDef.canceledFromSprinting = false;
+            skillDef.cancelSprintingOnActivation = true;
+            skillDef.fullRestockOnAssign = true;
+            skillDef.interruptPriority = InterruptPriority.PrioritySkill;
+            skillDef.isCombatSkill = false;
+            skillDef.mustKeyPress = true;
+            skillDef.rechargeStock = 1;
+            skillDef.requiredStock = 1;
+            skillDef.stockToConsume = 1;
+            skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("FlashbangIcon");
+
+            // We use LanguageAPI to add strings to the game, in the form of tokens
+            // Please note that it is instead recommended that you use a language file.
+            // More info in https://risk-of-thunder.github.io/R2Wiki/Mod-Creation/Assets/Localization/
+            LanguageAPI.Add("BANDIT2_UTILITY_SKILLSRETURNS_FLASHBANG_NAME", "Flashbang");
+            LanguageAPI.Add("BANDIT2_UTILITY_SKILLSRETURNS_FLASHBANG_DESCRIPTION", "Toss a flash grenade, <style=cIsDamage>stunning and blinding</style> enemies. Blinded enemies cant move and take <style=cIsDamage>25% more damage</style>.");
+        }
+
+        protected override void CreateAssets()
+        {
+            BuildProjectile();
         }
     }
+
+
 
     //Hacky way to show team-based area indicator
     //Forcefully spawns one in, instead of trying to build it into the projectile
@@ -170,3 +217,4 @@ namespace SkillsReturns.SkillSetup.Bandit2
         }
     }
 }
+
