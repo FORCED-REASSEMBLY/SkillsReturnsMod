@@ -41,6 +41,10 @@ namespace SkillsReturns.SkillSetup
             Hooks();
             RegisterStates();
             CreateSkillDef();
+
+            //Have to do this outside of CreateSkillDef since r2api rejects if skill state is null
+            if (skillDef) ContentAddition.AddSkillDef(skillDef);
+
             AddSkillToSlot();
         }
 
@@ -54,7 +58,6 @@ namespace SkillsReturns.SkillSetup
             skillDef.keywordTokens = new string[] { };
 
             (skillDef as ScriptableObject).name = SkillLangTokenName;
-            ContentAddition.AddSkillDef(skillDef);
         }
 
         protected virtual void CreateAssets() { }   //Use this to initialize skill-specific assets if needed.

@@ -14,7 +14,7 @@ namespace SkillsReturns.SkillSetup.Commando
 {
     public class CommandoKnife : SkillBase<CommandoKnife>
     {
-        public override string SkillName => "Combat Knife";
+        public override string SkillName => "Commando - Combat Knife";
 
         public override string SkillLangTokenName => "COMMANDO_SECONDARY_SKILLSRETURNS_SLASHKNIFE_NAME";
 
@@ -65,11 +65,11 @@ namespace SkillsReturns.SkillSetup.Commando
             if (c.TryGotoNext(
                  x => x.MatchLdarg(1),
                  x => x.MatchLdfld<DamageInfo>("damage"),
-                 x => x.MatchStloc(6)
+                 x => x.MatchStloc(7)
                 ))
             {
                 c.Index += 3;
-                c.Emit(OpCodes.Ldloc, 6);
+                c.Emit(OpCodes.Ldloc, 7);
                 c.Emit(OpCodes.Ldarg_0);    //self
                 c.Emit(OpCodes.Ldarg_1);    //damageInfo
                 c.EmitDelegate<Func<float, HealthComponent, DamageInfo, float>>((origDamage, victimHealth, damageInfo) =>
@@ -82,7 +82,7 @@ namespace SkillsReturns.SkillSetup.Commando
                     }
                     return newDamage;
                 });
-                c.Emit(OpCodes.Stloc, 6);
+                c.Emit(OpCodes.Stloc, 7);
             }
             else
             {
@@ -118,8 +118,7 @@ namespace SkillsReturns.SkillSetup.Commando
 
         protected override void RegisterStates()
         {
-            bool wasAdded;  //variable is unused, simply present because syntax demands it.
-            ContentAddition.AddEntityState(typeof(SlashKnife), out wasAdded);
+            ContentAddition.AddEntityState(typeof(SlashKnife), out bool wasAdded);
         }
     }
 }
