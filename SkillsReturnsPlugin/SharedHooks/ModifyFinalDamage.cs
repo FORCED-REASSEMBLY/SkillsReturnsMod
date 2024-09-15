@@ -39,7 +39,7 @@ namespace SkillsReturns.SharedHooks
             }
             else
             {
-                UnityEngine.Debug.LogError("SkillsReturns: Commando SlashKnife AmplifyDamage IL Hook failed. This will break a lot of things.");
+                UnityEngine.Debug.LogError("SkillsReturns: ModifyFinalDamage IL Hook failed. This will break a lot of things.");
             }
         }
 
