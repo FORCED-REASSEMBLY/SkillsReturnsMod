@@ -27,6 +27,8 @@ namespace SkillsReturns
             configFile = base.Config;
             Assets.Init();
 
+            IL.RoR2.HealthComponent.TakeDamageProcess += SharedHooks.ModifyFinalDamage.ModfyFinalDamageHook;
+
             AddToAssembly();
         }
 

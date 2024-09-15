@@ -9,6 +9,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 using MonoMod.Cil;
 using Mono.Cecil.Cil;
+using SkillsReturns.SharedHooks;
 
 namespace SkillsReturns.SkillSetup.Commando
 {
@@ -36,8 +37,14 @@ namespace SkillsReturns.SkillSetup.Commando
         {
             GlobalEventManager.onServerDamageDealt += ApplyKnifeDebuff;
             On.RoR2.HealthComponent.TakeDamage += ChangeDamageColor;
-            IL.RoR2.HealthComponent.TakeDamage += AmplifyDamage;
+            SharedHooks.ModifyFinalDamage.ModifyFinalDamageActions += AmplifyDamage;
         }
+
+        private void AmplifyDamage(ModifyFinalDamage.DamageMult damageMult, DamageInfo damageInfo, HealthComponent victim, CharacterBody victimBody)
+        {
+            if (victimBody.HasBuff(knifeDebuff)) damageMult.value += 0.5f;
+        }
+
         private void ApplyKnifeDebuff(DamageReport report)
         {
             if (!report.victimBody) return;
@@ -57,37 +64,6 @@ namespace SkillsReturns.SkillSetup.Commando
 
             //ALWAYS remember to call orig so that the original function can run.
             orig(self, damageInfo);
-        }
-
-        private void AmplifyDamage(MonoMod.Cil.ILContext il)
-        {
-            ILCursor c = new ILCursor(il);
-            if (c.TryGotoNext(
-                 x => x.MatchLdarg(1),
-                 x => x.MatchLdfld<DamageInfo>("damage"),
-                 x => x.MatchStloc(7)
-                ))
-            {
-                c.Index += 3;
-                c.Emit(OpCodes.Ldloc, 7);
-                c.Emit(OpCodes.Ldarg_0);    //self
-                c.Emit(OpCodes.Ldarg_1);    //damageInfo
-                c.EmitDelegate<Func<float, HealthComponent, DamageInfo, float>>((origDamage, victimHealth, damageInfo) =>
-                {
-                    float newDamage = origDamage;
-                    CharacterBody victimBody = victimHealth.body;
-                    if (victimBody && victimBody.HasBuff(knifeDebuff))
-                    {
-                        newDamage *= 1.5f;
-                    }
-                    return newDamage;
-                });
-                c.Emit(OpCodes.Stloc, 7);
-            }
-            else
-            {
-                UnityEngine.Debug.LogError("SkillsReturns: Commando SlashKnife AmplifyDamage IL Hook failed. This will break a lot of things.");
-            }
         }
 
         protected override void CreateSkillDef()
