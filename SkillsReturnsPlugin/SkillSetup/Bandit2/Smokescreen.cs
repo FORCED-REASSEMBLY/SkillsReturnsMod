@@ -136,7 +136,7 @@ namespace SkillsReturns.SkillSetup.Bandit2
             smokeProjectileImpact.blastProcCoefficient = 1;
             smokeProjectileImpact.fireChildren = true;
             smokeProjectileImpact.childrenCount = 1;
-            smokeProjectileImpact.childrenProjectilePrefab = smokeProjectilePrefab;   //Tells it to spawn our smoke cloud projectile when this triggers
+            smokeProjectileImpact.childrenProjectilePrefab = smokeCloud;   //Tells it to spawn our smoke cloud projectile when this triggers
             smokeProjectileImpact.childrenDamageCoefficient = 0;
 
             //Clone Bandit2's smokescreen effect and make the sound a part of the effect so it plays online
@@ -150,7 +150,7 @@ namespace SkillsReturns.SkillSetup.Bandit2
             ContentAddition.AddProjectile(smokeCloud);
 
             
-            ThrowFlashbang.projectilePrefab = smokeProjectilePrefab;
+            ThrowFlashbang.smokeProjectilePrefab = smokeProjectilePrefab;
         }
 
         protected override void CreateSkillDef()
