@@ -4,6 +4,7 @@ using R2API;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
+using SkillsReturns.SharedHooks;
 using SkillsReturns.SkillStates.Bandit2.FlashBang;
 using SkillsReturns.SkillStates.Commando;
 using UnityEngine;
@@ -25,6 +26,50 @@ namespace SkillsReturns.SkillSetup.Bandit2
         protected override void RegisterStates()
         {
             ContentAddition.AddEntityState(typeof(ThrowFlashbang), out bool wasAdded);
+        }
+
+        public static DamageAPI.ModdedDamageType SmokescreenDamageType;
+        public static BuffDef BlindingDebuff;
+
+        protected override void CreateAssets()
+        {
+            BuildProjectile();
+            if (BlindingDebuff) return;
+            SmokescreenDamageType = DamageAPI.ReserveDamageType();
+            BlindingDebuff = SkillsReturns.Utilities.CreateBuffDef("SmokescreenDebuff", false, false, true, new Color(0.8039216f, 0.482352942f, 0.843137264f), Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/texBuffCloakIcon.tif").WaitForCompletion());
+        }
+
+        protected override void Hooks()
+        {
+            GlobalEventManager.onServerDamageDealt += ApplySmokescreenDebuff;
+            On.RoR2.HealthComponent.TakeDamage += ChangeDamageColor;
+            SharedHooks.ModifyFinalDamage.ModifyFinalDamageActions += AmplifyDamage;
+        }
+
+        private void AmplifyDamage(ModifyFinalDamage.DamageMult damageMult, DamageInfo damageInfo, HealthComponent victim, CharacterBody victimBody)
+        {
+            if (victimBody.HasBuff(BlindingDebuff)) damageMult.value += 0.25f;
+        }
+
+        private void ApplySmokescreenDebuff(DamageReport report)
+        {
+            if (!report.victimBody) return;
+            if (report.damageInfo.rejected) return;
+            if (!report.damageInfo.HasModdedDamageType(SmokescreenDamageType)) return;
+
+            report.victimBody.AddTimedBuff(BlindingDebuff, 3f);
+        }
+
+        private void ChangeDamageColor(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
+        {
+            //Always use a NetworkServer.active check when doing stuff with TakeDamage
+            if (NetworkServer.active && self.body && self.body.HasBuff(BlindingDebuff) && damageInfo.damageColorIndex == DamageColorIndex.Default)
+            {
+                damageInfo.damageColorIndex = DamageColorIndex.Poison;
+            }
+            
+            //ALWAYS remember to call orig so that the original function can run.
+            orig(self, damageInfo);
         }
 
         private void BuildProjectile()
@@ -99,7 +144,7 @@ namespace SkillsReturns.SkillSetup.Bandit2
             BuffWard debuffWard = smokeCloud.AddComponent<BuffWard>();
             debuffWard.radius = smokeRadius;
             debuffWard.interval = 0.5f;
-            debuffWard.buffDef = Addressables.LoadAssetAsync<BuffDef>("\r\nRoR2/Base/Common/bdSlow50.asset").WaitForCompletion(); ;  //TODO: replace with custom BLINDED debuff
+            debuffWard.buffDef = BlindingDebuff;
             debuffWard.buffDuration = 1f;
             debuffWard.floorWard = false;
             debuffWard.expires = false;
@@ -179,10 +224,7 @@ namespace SkillsReturns.SkillSetup.Bandit2
             LanguageAPI.Add("BANDIT2_UTILITY_SKILLSRETURNS_FLASHBANG_DESCRIPTION", "Toss a flash grenade, <style=cIsDamage>stunning and blinding</style> enemies. Blinded enemies cant move and take <style=cIsDamage>25% more damage</style>.");
         }
 
-        protected override void CreateAssets()
-        {
-            BuildProjectile();
-        }
+        
     }
 
 
@@ -191,7 +233,7 @@ namespace SkillsReturns.SkillSetup.Bandit2
     //Forcefully spawns one in, instead of trying to build it into the projectile
     public class HackyTeamAreaIndicator : MonoBehaviour
     {
-        public GameObject indicatorPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/TeamAreaIndicator, GroundOnly.prefab").WaitForCompletion();
+        public GameObject indicatorPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/TeamAreaIndicator, FullSphere.prefab").WaitForCompletion();
         public float radius = 12f;
         private GameObject indicatorInstance;
 
