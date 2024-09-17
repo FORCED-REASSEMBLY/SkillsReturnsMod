@@ -36,6 +36,7 @@ namespace SkillsReturns.SkillSetup.Bandit2
             if (BlindingDebuff) return;
             SmokescreenDamageType = DamageAPI.ReserveDamageType();
             BlindingDebuff = SkillsReturns.Utilities.CreateBuffDef("SmokescreenDebuff", false, false, true, new Color(0.8039216f, 0.482352942f, 0.843137264f), Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/texBuffCloakIcon.tif").WaitForCompletion());
+            BuildProjectile();
         }
 
         protected override void Hooks()
@@ -234,9 +235,9 @@ namespace SkillsReturns.SkillSetup.Bandit2
             // Please note that it is instead recommended that you use a language file.
             // More info in https://risk-of-thunder.github.io/R2Wiki/Mod-Creation/Assets/Localization/
             LanguageAPI.Add("BANDIT2_UTILITY_SKILLSRETURNS_FLASHBANG_NAME", "Flashbang");
-            LanguageAPI.Add("BANDIT2_UTILITY_SKILLSRETURNS_FLASHBANG_DESCRIPTION", "Toss a flash grenade, <style=cIsDamage>stunning and blinding</style> enemies. Blinded enemies cant move and take <style=cIsDamage>25% more damage</style>.");
+            LanguageAPI.Add("BANDIT2_UTILITY_SKILLSRETURNS_FLASHBANG_DESCRIPTION", "Toss a flash grenade, <style=cIsDamage>stunning and blinding</style> enemies. Blinded enemies have <style=cIsDamage>reduced mobility</style> and take <style=cIsDamage>25% more damage</style>.");
 
-            BuildProjectile();
+            
         }
 
 
