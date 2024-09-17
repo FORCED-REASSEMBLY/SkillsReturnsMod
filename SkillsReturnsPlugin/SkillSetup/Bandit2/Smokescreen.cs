@@ -6,7 +6,6 @@ using RoR2.Projectile;
 using RoR2.Skills;
 using SkillsReturns.SharedHooks;
 using SkillsReturns.SkillStates.Bandit2.FlashBang;
-using SkillsReturns.SkillStates.Commando;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -23,6 +22,7 @@ namespace SkillsReturns.SkillSetup.Bandit2
 
         public override SkillFamily SkillFamily => Addressables.LoadAssetAsync<SkillFamily>("RoR2/Base/Bandit2/Bandit2BodyUtilityFamily.asset").WaitForCompletion();
 
+
         protected override void RegisterStates()
         {
             ContentAddition.AddEntityState(typeof(ThrowFlashbang), out bool wasAdded);
@@ -33,7 +33,6 @@ namespace SkillsReturns.SkillSetup.Bandit2
 
         protected override void CreateAssets()
         {
-            BuildProjectile();
             if (BlindingDebuff) return;
             SmokescreenDamageType = DamageAPI.ReserveDamageType();
             BlindingDebuff = SkillsReturns.Utilities.CreateBuffDef("SmokescreenDebuff", false, false, true, new Color(0.8039216f, 0.482352942f, 0.843137264f), Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/texBuffCloakIcon.tif").WaitForCompletion());
@@ -44,11 +43,13 @@ namespace SkillsReturns.SkillSetup.Bandit2
             GlobalEventManager.onServerDamageDealt += ApplySmokescreenDebuff;
             On.RoR2.HealthComponent.TakeDamage += ChangeDamageColor;
             SharedHooks.ModifyFinalDamage.ModifyFinalDamageActions += AmplifyDamage;
+            RecalculateStatsAPI.GetStatCoefficients += Bandit2SmokebombDebuffModifier;
         }
 
         private void AmplifyDamage(ModifyFinalDamage.DamageMult damageMult, DamageInfo damageInfo, HealthComponent victim, CharacterBody victimBody)
         {
             if (victimBody.HasBuff(BlindingDebuff)) damageMult.value += 0.25f;
+            
         }
 
         private void ApplySmokescreenDebuff(DamageReport report)
@@ -72,11 +73,23 @@ namespace SkillsReturns.SkillSetup.Bandit2
             orig(self, damageInfo);
         }
 
+       
+
+        private void Bandit2SmokebombDebuffModifier(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.HasBuff(BlindingDebuff))
+            {
+                args.moveSpeedReductionMultAdd += 0.8f;
+                args.attackSpeedReductionMultAdd += 0.3f;
+            }
+        }
+
+
         private void BuildProjectile()
         {
             //These 2 variables are used during setup to control some stuff
             float smokeDuration = 7f;
-            float smokeRadius = 12f;
+            float smokeRadius = 15f;
 
             //Create smoke grenade
             //We clone Commando's grenade projectile for this
@@ -222,7 +235,10 @@ namespace SkillsReturns.SkillSetup.Bandit2
             // More info in https://risk-of-thunder.github.io/R2Wiki/Mod-Creation/Assets/Localization/
             LanguageAPI.Add("BANDIT2_UTILITY_SKILLSRETURNS_FLASHBANG_NAME", "Flashbang");
             LanguageAPI.Add("BANDIT2_UTILITY_SKILLSRETURNS_FLASHBANG_DESCRIPTION", "Toss a flash grenade, <style=cIsDamage>stunning and blinding</style> enemies. Blinded enemies cant move and take <style=cIsDamage>25% more damage</style>.");
+
+            BuildProjectile();
         }
+
 
         
     }
@@ -252,6 +268,8 @@ namespace SkillsReturns.SkillSetup.Bandit2
             indicator.teamFilter = tf;
             indicator.transform.localScale = radius * Vector3.one;
         }
+
+        
 
         private void OnDestroy()
         {
