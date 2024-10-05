@@ -39,7 +39,7 @@ namespace SkillsReturns.SkillStates.Commando
                     baseDamage = damageStat * 3.6f,
                     position = characterBody.corePosition,
                     teamIndex = GetTeam(),
-                    radius = 10,
+                    radius = 5f,
                     falloffModel = BlastAttack.FalloffModel.None,
                     baseForce = 0f,
                     bonusForce = Vector3.zero,

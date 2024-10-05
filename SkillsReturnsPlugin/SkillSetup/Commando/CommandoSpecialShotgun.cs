@@ -22,12 +22,12 @@ namespace SkillsReturns.SkillSetup.Commando
 
         public override string SkillLangTokenDesc => "COMMANDO_SPECIAL_SKILLSRETURNS_SHOTGUNBLAST_DESCRIPTION";
 
-        public override SkillFamily SkillFamily => Addressables.LoadAssetAsync<SkillFamily>("RoR2/Base/Commando/CommandoBodySecondaryFamily.asset").WaitForCompletion();
+        public override SkillFamily SkillFamily => Addressables.LoadAssetAsync<SkillFamily>("RoR2/Base/Commando/CommandoBodySpecialFamily.asset").WaitForCompletion();
 
         protected override void CreateSkillDef()
         {
             base.CreateSkillDef();
-            skillDef.activationState = new SerializableEntityStateType(typeof(SpecialShotgunBlastState));
+            skillDef.activationState = new SerializableEntityStateType(typeof(SpecialShotgunBlast));
             skillDef.activationStateMachineName = "Weapon";
             skillDef.baseMaxStock = 1;
             skillDef.baseRechargeInterval = 6f;
@@ -47,14 +47,15 @@ namespace SkillsReturns.SkillSetup.Commando
             // Please note that it is instead recommended that you use a language file.
             // More info in https://risk-of-thunder.github.io/R2Wiki/Mod-Creation/Assets/Localization/
             LanguageAPI.Add("COMMANDO_SPECIAL_SKILLSRETURNS_SHOTGUNBLAST_NAME", "Point-Blank");
-            LanguageAPI.Add("COMMANDO_SPECIAL_SKILLSRETURNS_SHOTGUNBLAST_DESCRIPTION", "Charge up a Shotgun Blast for <style=cIsDamage>6x200% - 10x200% damage</style>.");
+            LanguageAPI.Add("COMMANDO_SPECIAL_SKILLSRETURNS_SHOTGUNBLAST_DESCRIPTION", "<style=cIsDamage>Stunning.</style> Fire a Shotgun Blast for <style=cIsDamage>6x200% damage</style>.");
+        }
 
-            protected override void RegisterStates()
+        protected override void RegisterStates()
         {
-            ContentAddition.AddEntityState(typeof(SpecialShotgunBlastState), out bool wasAdded);
+            ContentAddition.AddEntityState(typeof(SpecialShotgunBlast), out bool wasAdded);
         }
     }
-    }
-
-
 }
+
+
+
