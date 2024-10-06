@@ -7,8 +7,10 @@ using RoR2.Projectile;
 
 namespace SkillsReturns.SkillStates.Bandit2.FlashBang
 {
+    
     public class ThrowFlashbang : AimThrowableBase
     {
+
         public static GameObject smokeProjectilePrefab;//Uses this name because AimThrowableBase has projectilePrefab field. Statics are bad for inheritance, but we use them here for convenience since we don't have easy access to EntityStateConfigurations.
         public static GameObject aimEndpointVisualizerPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressArrowRainIndicator.prefab").WaitForCompletion();
         public static GameObject aimArcVisualizerPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/VFX/BasicThrowableVisualizer.prefab").WaitForCompletion();

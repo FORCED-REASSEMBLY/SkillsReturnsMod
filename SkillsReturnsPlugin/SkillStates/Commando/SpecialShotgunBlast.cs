@@ -10,6 +10,8 @@ namespace SkillsReturns.SkillStates.Commando
 {
     public class SpecialShotgunBlast : BaseSkillState
     {
+        public static GameObject shotgunHitsparkEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/Commando/HitsparkCommandoBarrage.prefab").WaitForCompletion();
+        public static GameObject shotgunBulletEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/TracerCommandoDefault.prefab").WaitForCompletion();
         public static float baseDuration = 0.5f;
         private float duration;
 
@@ -22,6 +24,16 @@ namespace SkillsReturns.SkillStates.Commando
             PlayAnimation("Gesture, Additive", "FireBarrage", "FireBarrage.playbackRate", duration);
             PlayAnimation("Gesture, Override", "FireBarrage", "FireBarrage.playbackRate", duration);
             Util.PlaySound(FireCaptainShotgun.wideSoundString, gameObject);
+           
+            if (shotgunHitsparkEffectPrefab)
+            {
+                EffectManager.SimpleMuzzleFlash(shotgunHitsparkEffectPrefab, gameObject, "MuzzleRight", false);
+            }
+
+            if (shotgunBulletEffectPrefab)
+            {
+                EffectManager.SimpleMuzzleFlash(shotgunBulletEffectPrefab, gameObject, "MuzzleRight", false);
+            }
 
             if (isAuthority)
             {
@@ -34,7 +46,7 @@ namespace SkillsReturns.SkillStates.Commando
                     damageType = DamageType.Stun1s,
                     falloffModel = BulletAttack.FalloffModel.DefaultBullet,
                     origin = aimRay.origin,
-                    aimVector = aimRay.direction,                   
+                    aimVector = aimRay.direction,
                     maxDistance = 25f,
                     radius = 1f,
                     bulletCount = 6U,
@@ -42,12 +54,23 @@ namespace SkillsReturns.SkillStates.Commando
                     maxSpread = 10f,
                     filterCallback = BulletAttack.defaultFilterCallback,
                     hitCallback = BulletAttack.defaultHitCallback,
-                    stopperMask = LayerIndex.world.collisionMask
+                    stopperMask = LayerIndex.world.collisionMask,
+                    isCrit = base.RollCrit(),
+                    tracerEffectPrefab = shotgunBulletEffectPrefab,
+                    hitEffectPrefab = shotgunHitsparkEffectPrefab,
 
-                }; ba.Fire(); 
-            }
+
+
+                }; ba.Fire();
+
                 
+                 
+
+            }
         }
+
+
+
 
         public override void FixedUpdate()
         {
@@ -65,6 +88,6 @@ namespace SkillsReturns.SkillStates.Commando
         }
 
     }
-
 }
+
 
