@@ -41,7 +41,7 @@ namespace SkillsReturns.SkillSetup.Commando
             skillDef.rechargeStock = 1;
             skillDef.requiredStock = 1;
             skillDef.stockToConsume = 1;
-            skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("CombatKnifeIcon");
+            skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("PointBlankIcon");
 
             // We use LanguageAPI to add strings to the game, in the form of tokens
             // Please note that it is instead recommended that you use a language file.

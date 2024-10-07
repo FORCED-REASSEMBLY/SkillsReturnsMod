@@ -1,0 +1,108 @@
+ManifestFileVersion: 0
+CRC: 2536826989
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 63b4ffbc338d5fdb40ec46012d40062a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c8ec9156226465ec4506f9b0e872d306
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/matGrenadeSpark.mat
+- Assets/Resources/Prefabs/SmokeGrenade/SmokeEffect.prefab
+- Assets/Resources/StubbedShaders/RoR2/CustomPostProcess/SobelOutline.shader
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/matSmoke.mat
+- Assets/Resources/StubbedShaders/RoR2/UI/HGUIOverbrighten.shader
+- Assets/Resources/StubbedShaders/RoR2/PostProcess/HGScopeShader.shader
+- Assets/Resources/StubbedShaders/Decalicious/DecaliciousDeferredDecal.shader
+- Assets/Resources/Icons/FlashbangIcon.png
+- Assets/Resources/StubbedShaders/Decalicious/DecaliciousGameObjectID.shader
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/texSpark.png
+- Assets/Resources/StubbedShaders/RoR2/Environment/HGWaterfall.shader
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/texTrail.png
+- Assets/Resources/StubbedShaders/RoR2/CustomPostProcess/HopooSSR.shader
+- Assets/Resources/StubbedShaders/RoR2/PostProcess/HGOutlineHighlight.shader
+- Assets/Resources/StubbedShaders/RoR2/UI/HGUIIgnoreZ.shader
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/texRing.png
+- Assets/Resources/StubbedShaders/RoR2/FX/HGDamageNumber.shader
+- Assets/Resources/StubbedShaders/RoR2/FX/HGForwardPlanet.shader
+- Assets/Resources/StubbedShaders/RoR2/FX/HGIntersectionCloudRemap.shader
+- Assets/Resources/StubbedShaders/RoR2/FX/HGSolidParallax.shader
+- Assets/Resources/StubbedShaders/RoR2/PostProcess/HGVisionLimit.shader
+- Assets/Resources/StubbedShaders/RoR2/PostProcess/HGScreenDamage.shader
+- Assets/Resources/StubbedShaders/RoR2/Deferred/HGWavyCloth.shader
+- Assets/Resources/StubbedShaders/RoR2/UI/HGUIBlur.shader
+- Assets/Resources/StubbedShaders/RoR2/Deferred/HGSnowTopped.shader
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/texSmoke.png
+- Assets/Resources/Icons/CombatKnifeIcon.png
+- Assets/Resources/Prefabs/SmokeGrenade/Materials/matTearGasGrenade.mat
+- Assets/Resources/StubbedShaders/RoR2/UI/HGUICustomBlend.shader
+- Assets/Resources/StubbedShaders/PsychoseNGGS/NGSS_ContactShadows.shader
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/matRing.mat
+- Assets/Resources/StubbedShaders/LeTai'sAsset/EfficientBlur.shader
+- Assets/Resources/StubbedShaders/RoR2/UI/HGUIBarRemap.shader
+- Assets/Resources/StubbedShaders/PsychoseNGGS/NGSS_FrustumShadows.shader
+- Assets/Resources/StubbedShaders/RoR2/Deferred/HGStandardWithDistortion.shader
+- Assets/Resources/StubbedShaders/RoR2/FX/HGVertexOnly.shader
+- Assets/Resources/StubbedShaders/RoR2/FX/HGCloudRemap.shader
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/texRay.png
+- Assets/Resources/StubbedShaders/CalmWater/ProjectorCaustics.shader
+- Assets/Resources/StubbedShaders/RoR2/CustomPostProcess/RampFog.shader
+- Assets/Resources/Prefabs/SmokeGrenade/SmokeGrenade.prefab
+- Assets/Resources/StubbedShaders/RoR2/Deferred/HGStandard.shader
+- Assets/Resources/StubbedShaders/CalmWater/CalmWater - DoubleSided.shader
+- Assets/Resources/StubbedShaders/CalmWater/CalmWater - DX11 - DoubleSided.shader
+- Assets/Resources/StubbedShaders/RoR2/MobileBlur.shader
+- Assets/Resources/StubbedShaders/RoR2/Deferred/HGTriplanarTerrainBlend.shader
+- Assets/Resources/StubbedShaders/RoR2/FX/HGDistortion.shader
+- Assets/Resources/StubbedShaders/RoR2/FX/HGOpaqueCloudRemap.shader
+- Assets/Resources/StubbedShaders/RoR2/CustomPostProcess/SobelRain.shader
+- Assets/Resources/StubbedShaders/Decalicious/DecaliciousUnlitDecal.shader
+- Assets/Resources/StubbedShaders/CalmWater/CalmWater - DX11.shader
+- Assets/Resources/StubbedShaders/CalmWater/UnderWaterFog.shader
+- Assets/Resources/StubbedShaders/LeTai'sAsset/TranslucentImage.shader
+- Assets/Resources/StubbedShaders/RoR2/UI/HGUIAnimateAlpha.shader
+- Assets/Resources/StubbedShaders/RoR2/PostProcess/HGSobelBuffer.shader
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/matRay.mat
+- Assets/Resources/StubbedShaders/CalmWater/CalmWater - SingleSided.shader
+- Assets/Resources/StubbedShaders/LeTai'sAsset/FillCrop.shader
+- Assets/Resources/Icons/PointBlankIcon.png
+- Assets/Resources/Prefabs/SmokeGrenade/FBX/TearGasGrenade.dae
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/matSpark.mat
+- Assets/Resources/StubbedShaders/RoR2/Environment/HGDistantWater.shader
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/texGrenadeExplosion.png
+- Assets/Resources/Prefabs/SmokeGrenade/Particles/matTrail.mat
+- Assets/Resources/StubbedShaders/RoR2/skymeadow/Fill-Linear.shader
+- Assets/Resources/StubbedShaders/RoR2/Environment/HGGrass.shader
+- Assets/Resources/Prefabs/SmokeGrenade/Textures/texTearGas.png
+- Assets/Resources/StubbedShaders/PsychoseNGGS/NGSS_Directional.shader
+Dependencies: []
