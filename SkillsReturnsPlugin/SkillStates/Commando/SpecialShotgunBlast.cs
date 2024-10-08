@@ -37,6 +37,13 @@ namespace SkillsReturns.SkillStates.Commando
 
             if (isAuthority)
             {
+                //lazy way to do this, you can fully override the skill and entitystate if you're doing more substantial changes.
+                bool isScepter = base.skillLocator && base.skillLocator.special
+                    && base.skillLocator.special.skillDef == SkillSetup.Commando.CommandoSpecialShotgun.Instance.scepterDef;
+
+                uint bulletCount = 6u;
+                if (isScepter) bulletCount *= 2;
+
                 BulletAttack ba = new BulletAttack
                 {
                     owner = gameObject,
@@ -49,7 +56,7 @@ namespace SkillsReturns.SkillStates.Commando
                     aimVector = aimRay.direction,
                     maxDistance = 25f,
                     radius = 1f,
-                    bulletCount = 6U,
+                    bulletCount = bulletCount,
                     minSpread = 5f,
                     maxSpread = 10f,
                     filterCallback = BulletAttack.defaultFilterCallback,
@@ -59,13 +66,7 @@ namespace SkillsReturns.SkillStates.Commando
                     tracerEffectPrefab = shotgunBulletEffectPrefab,
                     hitEffectPrefab = shotgunHitsparkEffectPrefab,
 
-
-
                 }; ba.Fire();
-
-                
-                 
-
             }
         }
 
