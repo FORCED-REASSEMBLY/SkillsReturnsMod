@@ -89,7 +89,7 @@ namespace SkillsReturns.SkillSetup.Commando
             ModCompat.AncientScepterCompat.AddScepterSkill(scepterDef, "CommandoBody", skillDef);
 
             LanguageAPI.Add(SkillLangTokenName + "_SCEPTER", "Lead Shot");
-            LanguageAPI.Add(SkillLangTokenDesc + "_SCEPTER", "<style=cIsDamage>Stunning.</style>  Fire a <style=cIsDamage>piercing</style> shotgun blast for <style=cIsDamage>12x200% damage</style>.");
+            LanguageAPI.Add(SkillLangTokenDesc + "_SCEPTER", "<style=cIsDamage>Stunning.</style> Fire a <style=cIsDamage>piercing</style> shotgun blast for <style=cIsDamage>12x200% damage</style>.");
         }
 
         protected override void RegisterStates()
