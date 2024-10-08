@@ -84,6 +84,7 @@ namespace SkillsReturns.SkillSetup.Commando
             skillDef.requiredStock = 1;
             skillDef.stockToConsume = 1;
             skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("CombatKnifeIcon");
+            skillDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
 
             LanguageAPI.Add(SkillLangTokenName, "Combat Knife");
             LanguageAPI.Add(SkillLangTokenDesc, "Slash enemies for <style=cIsDamage>360% damage</style>, wounding and <style=cIsDamage>stunning</style> enemies. Wounded enemies take <style=cIsDamage>50% more damage</style>.");
