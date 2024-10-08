@@ -230,6 +230,7 @@ namespace SkillsReturns.SkillSetup.Bandit2
             skillDef.requiredStock = 1;
             skillDef.stockToConsume = 1;
             skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("FlashbangIcon");
+            skillDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
 
             LanguageAPI.Add(SkillLangTokenName, "Flashbang");
             LanguageAPI.Add(SkillLangTokenDesc, "Toss a flash grenade, <style=cIsDamage>stunning and blinding</style> enemies. Blinded enemies have <style=cIsDamage>reduced mobility</style> and take <style=cIsDamage>25% more damage</style>.");
