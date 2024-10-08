@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
-
 namespace SkillsReturns
 {
     internal static class ModCompat
@@ -32,7 +31,7 @@ namespace SkillsReturns
             [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
             private static void AddScepterSkillInternal(SkillDef scepterSkill, string targetBodyName, SkillDef originalSkill)
             {
-                AncientScepter.AncientScepterItem.instance.RegisterScepterSkill(scepterSkill, targetBodyName, originalSkill);
+               // AncientScepter.AncientScepterItem.instance.RegisterScepterSkill(scepterSkill, targetBodyName, originalSkill);
             }
         }
     }
