@@ -84,12 +84,10 @@ namespace SkillsReturns.SkillSetup.Commando
             skillDef.requiredStock = 1;
             skillDef.stockToConsume = 1;
             skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("CombatKnifeIcon");
+            skillDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
 
-            // We use LanguageAPI to add strings to the game, in the form of tokens
-            // Please note that it is instead recommended that you use a language file.
-            // More info in https://risk-of-thunder.github.io/R2Wiki/Mod-Creation/Assets/Localization/
-            LanguageAPI.Add("COMMANDO_SECONDARY_SKILLSRETURNS_SLASHKNIFE_NAME", "Combat Knife");
-            LanguageAPI.Add("COMMANDO_SECONDARY_SKILLSRETURNS_SLASHKNIFE_DESCRIPTION", "Slash enemies for <style=cIsDamage>360% damage</style>, wounding and <style=cIsDamage>stunning</style> enemies. Wounded enemies take <style=cIsDamage>50% more damage</style>.");
+            LanguageAPI.Add(SkillLangTokenName, "Combat Knife");
+            LanguageAPI.Add(SkillLangTokenDesc, "Slash enemies for <style=cIsDamage>360% damage</style>, wounding and <style=cIsDamage>stunning</style> enemies. Wounded enemies take <style=cIsDamage>50% more damage</style>.");
         }
 
         protected override void RegisterStates()

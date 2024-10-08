@@ -42,6 +42,9 @@
     <Reference Include="AK.Wwise.Unity.Timeline">
       <HintPath>libs\AK.Wwise.Unity.Timeline.dll</HintPath>
     </Reference>
+    <Reference Include="AncientScepter">
+      <HintPath>libs\SoftDependencies\AncientScepter.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>libs\Assembly-CSharp.dll</HintPath>
     </Reference>

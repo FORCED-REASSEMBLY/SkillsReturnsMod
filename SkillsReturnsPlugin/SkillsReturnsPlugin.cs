@@ -14,6 +14,8 @@ namespace SkillsReturns
     [BepInDependency(SoundAPI.PluginGUID)]
     [BepInDependency(R2API.R2API.PluginGUID)]
 
+    [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
+
     [BepInPlugin(
         "com.Forced_Reassembly.SkillsReturns",
         "Skills Returns",
@@ -25,6 +27,7 @@ namespace SkillsReturns
         private void Awake()
         {
             configFile = base.Config;
+            ModCompat.Init();
             Assets.Init();
 
             IL.RoR2.HealthComponent.TakeDamageProcess += SharedHooks.ModifyFinalDamage.ModfyFinalDamageHook;

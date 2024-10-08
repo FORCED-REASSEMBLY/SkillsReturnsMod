@@ -24,6 +24,8 @@ namespace SkillsReturns.SkillSetup.Commando
 
         public override SkillFamily SkillFamily => Addressables.LoadAssetAsync<SkillFamily>("RoR2/Base/Commando/CommandoBodySpecialFamily.asset").WaitForCompletion();
 
+        public SkillDef scepterDef;
+
         protected override void CreateSkillDef()
         {
             base.CreateSkillDef();
@@ -43,11 +45,51 @@ namespace SkillsReturns.SkillSetup.Commando
             skillDef.stockToConsume = 1;
             skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("PointBlankIcon");
 
-            // We use LanguageAPI to add strings to the game, in the form of tokens
-            // Please note that it is instead recommended that you use a language file.
-            // More info in https://risk-of-thunder.github.io/R2Wiki/Mod-Creation/Assets/Localization/
-            LanguageAPI.Add("COMMANDO_SPECIAL_SKILLSRETURNS_SHOTGUNBLAST_NAME", "Point-Blank");
-            LanguageAPI.Add("COMMANDO_SPECIAL_SKILLSRETURNS_SHOTGUNBLAST_DESCRIPTION", "<style=cIsDamage>Stunning.</style> Fire a Shotgun Blast for <style=cIsDamage>6x200% damage</style>.");
+            //Add Stunning Keyword
+            skillDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
+
+            LanguageAPI.Add(SkillLangTokenName, "Point-Blank");
+            LanguageAPI.Add(SkillLangTokenDesc, "<style=cIsDamage>Stunning.</style> Fire a <style=cIsDamage>piercing</style> shotgun blast for <style=cIsDamage>6x200% damage</style>.");
+
+            if (ModCompat.AncientScepterCompat.pluginLoaded) BuildScepterSkill();
+        }
+
+        private void BuildScepterSkill()
+        {
+            scepterDef = ScriptableObject.CreateInstance<SkillDef>();
+            scepterDef.skillName = SkillLangTokenName+"_SCEPTER";
+            scepterDef.skillNameToken = SkillLangTokenName + "_SCEPTER";
+            scepterDef.skillDescriptionToken = SkillLangTokenDesc + "_SCEPTER";
+            scepterDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
+            (scepterDef as ScriptableObject).name = SkillLangTokenName;
+
+            //Note that it's possible for Scepter Skills to fully change which EntityState is used.
+            //Here, we're just doing the lazy way and adding a built-in Scepter check while reusing the SpecialShotgunBlast state.
+            scepterDef.activationState = new SerializableEntityStateType(typeof(SpecialShotgunBlast));
+
+            scepterDef.activationStateMachineName = skillDef.activationStateMachineName;
+            scepterDef.baseMaxStock = skillDef.baseMaxStock;
+            scepterDef.baseRechargeInterval = skillDef.baseRechargeInterval;
+            scepterDef.beginSkillCooldownOnSkillEnd = skillDef.beginSkillCooldownOnSkillEnd;
+            scepterDef.canceledFromSprinting = skillDef.canceledFromSprinting;
+            scepterDef.cancelSprintingOnActivation = skillDef.cancelSprintingOnActivation;
+            scepterDef.fullRestockOnAssign = skillDef.fullRestockOnAssign;
+            scepterDef.interruptPriority = skillDef.interruptPriority;
+            scepterDef.isCombatSkill = skillDef.isCombatSkill;
+            scepterDef.mustKeyPress = skillDef.mustKeyPress;
+            scepterDef.rechargeStock = skillDef.rechargeStock;
+            scepterDef.requiredStock = skillDef.requiredStock;
+            scepterDef.stockToConsume = skillDef.stockToConsume;
+            scepterDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("PointBlankIcon");   //TODO: SCEPTER ICON
+
+            //SkillBase automatically registers SkillBase.skillDef. This is a new skillDef so we need to manually register it.
+            ContentAddition.AddSkillDef(scepterDef);
+
+            //This has code to automatically check if Scepter is actually loaded.
+            ModCompat.AncientScepterCompat.AddScepterSkill(scepterDef, "CommandoBody", skillDef);
+
+            LanguageAPI.Add(SkillLangTokenName + "_SCEPTER", "Lead Shot");
+            LanguageAPI.Add(SkillLangTokenDesc + "_SCEPTER", "<style=cIsDamage>Stunning.</style> Fire a <style=cIsDamage>piercing</style> shotgun blast for <style=cIsDamage>12x200% damage</style>.");
         }
 
         protected override void RegisterStates()
