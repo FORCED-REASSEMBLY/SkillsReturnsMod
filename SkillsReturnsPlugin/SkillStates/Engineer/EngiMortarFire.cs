@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using EntityStates.Toolbot;
+using RoR2.Projectile;
 
 namespace SkillsReturns.SkillStates.Engineer
 {
@@ -18,6 +19,9 @@ namespace SkillsReturns.SkillStates.Engineer
         private float duration;
         public static GameObject shotgunHitsparkEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/Commando/HitsparkCommandoBarrage.prefab").WaitForCompletion();
         public static GameObject shotgunBulletEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/TracerCommandoDefault.prefab").WaitForCompletion();
+        public static GameObject projectilePrefab;
+        public float damageCoefficient = 0.8f;
+        public float force = 0f;
 
         public override void OnEnter()
         {
@@ -29,30 +33,9 @@ namespace SkillsReturns.SkillStates.Engineer
 
             if (isAuthority)
             {
-
-                BulletAttack ba = new BulletAttack
-                {
-                    owner = gameObject,
-                    damage = damageStat * 0.8f,
-                    procCoefficient = 1f,
-                    force = 1f,
-                    falloffModel = BulletAttack.FalloffModel.DefaultBullet,
-                    origin = aimRay.origin,
-                    aimVector = aimRay.direction,
-                    maxDistance = 100f,
-                    radius = 1f,
-                    bulletCount = 1U,
-                    minSpread = 0f,
-                    maxSpread = 3f,
-                    filterCallback = BulletAttack.defaultFilterCallback,
-                    hitCallback = BulletAttack.defaultHitCallback,
-                    stopperMask = LayerIndex.enemyBody.collisionMask,
-                    isCrit = base.RollCrit(),
-                    tracerEffectPrefab = shotgunBulletEffectPrefab,
-                    hitEffectPrefab = shotgunHitsparkEffectPrefab,
-
-                }; ba.Fire();
-
+                ProjectileManager.instance.FireProjectile(projectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), gameObject,
+                damageStat * damageCoefficient, force, Util.CheckRoll(critStat, characterBody.master), DamageColorIndex.Default, null, -1f);  
+                
             }
         }
 

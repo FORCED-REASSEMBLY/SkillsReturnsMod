@@ -49,6 +49,15 @@ namespace SkillsReturns.SkillSetup.Engineer
             LanguageAPI.Add(SkillLangTokenName, "Mortar Barrage");
             LanguageAPI.Add(SkillLangTokenDesc, "Launch mortar rounds in an arc for <style=cIsDamage>80% damage</style>.");
         }
+
+        protected override void CreateAssets()
+        {
+            GameObject projectilePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Toolbot/ToolbotGrenadeLauncherProjectile.prefab").WaitForCompletion()
+                .InstantiateClone("SkillsReturnsEngiMortarProjectile", true);
+            ContentAddition.AddProjectile(projectilePrefab);
+            EngiMortarFire.projectilePrefab = projectilePrefab;
+        }
+
         protected override void RegisterStates()
         {
             ContentAddition.AddEntityState(typeof(EngiMortarFire), out bool wasAdded);
