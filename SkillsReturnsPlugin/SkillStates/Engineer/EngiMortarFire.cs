@@ -19,10 +19,10 @@ namespace SkillsReturns.SkillStates.Engineer
         private float duration;
         public static GameObject shotgunHitsparkEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/Commando/HitsparkCommandoBarrage.prefab").WaitForCompletion();
         public static GameObject shotgunBulletEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/TracerCommandoDefault.prefab").WaitForCompletion();
-        public static GameObject projectilePrefab;
+        public static GameObject engiMortarProjectilePrefab;
         public float damageCoefficient = 0.8f;
-        public float force = 0f;
-
+        public float force = 100f;
+        public float SpeedOverride = 5f;
         public override void OnEnter()
         {
             base.OnEnter();
@@ -31,11 +31,13 @@ namespace SkillsReturns.SkillStates.Engineer
             StartAimMode(aimRay, 2f, false);
             Util.PlaySound("Play_MULT_m1_grenade_launcher_shoot", gameObject);
 
+
             if (isAuthority)
             {
-                ProjectileManager.instance.FireProjectile(projectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), gameObject,
-                damageStat * damageCoefficient, force, Util.CheckRoll(critStat, characterBody.master), DamageColorIndex.Default, null, -1f);  
                 
+                ProjectileManager.instance.FireProjectile(engiMortarProjectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), gameObject,
+                damageStat * damageCoefficient, force, Util.CheckRoll(critStat, characterBody.master), DamageColorIndex.Default, null, -1f);
+                Debug.Log("projectile prefab activation debug message");
             }
         }
 

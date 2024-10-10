@@ -11,6 +11,8 @@ using MonoMod.Cil;
 using Mono.Cecil.Cil;
 using SkillsReturns.SharedHooks;
 using SkillsReturns.SkillStates.Engineer;
+using System.Net.NetworkInformation;
+using RoR2.UI;
 
 
 namespace SkillsReturns.SkillSetup.Engineer
@@ -25,7 +27,9 @@ namespace SkillsReturns.SkillSetup.Engineer
 
         public override SkillFamily SkillFamily => Addressables.LoadAssetAsync<SkillFamily>("RoR2/Base/Engi/EngiBodyPrimaryFamily.asset").WaitForCompletion();
 
+
         public SkillDef scepterDef;
+      
 
         protected override void CreateSkillDef()
         {
@@ -52,11 +56,17 @@ namespace SkillsReturns.SkillSetup.Engineer
 
         protected override void CreateAssets()
         {
+
             GameObject projectilePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Toolbot/ToolbotGrenadeLauncherProjectile.prefab").WaitForCompletion()
-                .InstantiateClone("SkillsReturnsEngiMortarProjectile", true);
+            .InstantiateClone("SkillsReturnsEngiMortarProjectile", true);
             ContentAddition.AddProjectile(projectilePrefab);
-            EngiMortarFire.projectilePrefab = projectilePrefab;
+            EngiMortarFire.engiMortarProjectilePrefab = projectilePrefab;
+            Debug.Log("projectile prefab creation debug message");
+            Rigidbody EngiMortarRigidBody = projectilePrefab.GetComponent<Rigidbody>();
+            EngiMortarRigidBody.useGravity = true;
+
         }
+
 
         protected override void RegisterStates()
         {

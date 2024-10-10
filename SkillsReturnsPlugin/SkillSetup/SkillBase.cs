@@ -37,7 +37,6 @@ namespace SkillsReturns.SkillSetup
         {
             CreateConfig();
             if (!enabled) return;
-            CreateAssets();
             Hooks();
             RegisterStates();
             CreateSkillDef();
