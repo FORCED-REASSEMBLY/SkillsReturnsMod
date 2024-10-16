@@ -13,6 +13,7 @@ using SkillsReturns.SharedHooks;
 using SkillsReturns.SkillStates.Engineer;
 using System.Net.NetworkInformation;
 using RoR2.UI;
+using RoR2.Projectile;
 
 
 namespace SkillsReturns.SkillSetup.Engineer
@@ -51,7 +52,7 @@ namespace SkillsReturns.SkillSetup.Engineer
             skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("PointBlankIcon");
 
             LanguageAPI.Add(SkillLangTokenName, "Mortar Barrage");
-            LanguageAPI.Add(SkillLangTokenDesc, "Launch mortar rounds in an arc for <style=cIsDamage>80% damage</style>.");
+            LanguageAPI.Add(SkillLangTokenDesc, "Launch mortar rounds in an arc for <style=cIsDamage>100% damage</style>.");
         }
 
         protected override void CreateAssets()
@@ -61,10 +62,19 @@ namespace SkillsReturns.SkillSetup.Engineer
             .InstantiateClone("SkillsReturnsEngiMortarProjectile", true);
             ContentAddition.AddProjectile(projectilePrefab);
             EngiMortarFire.engiMortarProjectilePrefab = projectilePrefab;
-            Debug.Log("projectile prefab creation debug message");
             Rigidbody EngiMortarRigidBody = projectilePrefab.GetComponent<Rigidbody>();
             EngiMortarRigidBody.useGravity = true;
-
+            EngiMortarRigidBody.mass = 1f;
+            EngiMortarRigidBody.angularDrag = 300f;
+            ProjectileSimple EngiMortarProjectileSimple = projectilePrefab.GetComponent<ProjectileSimple>();
+            EngiMortarProjectileSimple.desiredForwardSpeed = 25f
+            ProjectileImpactExplosion EngiMortarImpactExplosion = projectilePrefab.GetComponent <ProjectileImpactExplosion>();
+            EngiMortarImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
+            EngiMortarImpactExplosion.lifetimeAfterImpact = 0;
+            EngiMortarImpactExplosion.blastRadius = 5f;
+            EngiMortarImpactExplosion.explosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiGrenadeExplosion.prefab").WaitForCompletion();
+            ProjectileDamage EngiMortarProjectileDamage = projectilePrefab.GetComponent<ProjectileDamage>();
+            EngiMortarProjectileDamage.damageType = DamageType.Stun1s;
         }
 
 

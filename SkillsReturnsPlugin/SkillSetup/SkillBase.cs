@@ -40,6 +40,7 @@ namespace SkillsReturns.SkillSetup
             Hooks();
             RegisterStates();
             CreateSkillDef();
+            CreateAssets();
 
             //Have to do this outside of CreateSkillDef since r2api rejects if skill state is null
             if (skillDef) ContentAddition.AddSkillDef(skillDef);

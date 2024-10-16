@@ -17,12 +17,9 @@ namespace SkillsReturns.SkillStates.Engineer
     {
         public static float baseDuration = 0.2f;
         private float duration;
-        public static GameObject shotgunHitsparkEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/Commando/HitsparkCommandoBarrage.prefab").WaitForCompletion();
-        public static GameObject shotgunBulletEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/TracerCommandoDefault.prefab").WaitForCompletion();
         public static GameObject engiMortarProjectilePrefab;
-        public float damageCoefficient = 0.8f;
+        public float damageCoefficient = 1f;
         public float force = 100f;
-        public float SpeedOverride = 5f;
         public override void OnEnter()
         {
             base.OnEnter();
@@ -34,10 +31,14 @@ namespace SkillsReturns.SkillStates.Engineer
 
             if (isAuthority)
             {
-                
-                ProjectileManager.instance.FireProjectile(engiMortarProjectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), gameObject,
+                Vector3 aimDirection = aimRay.direction;
+                aimDirection.y = 0f;
+                aimDirection.Normalize();
+                aimDirection.y = 1f;
+                aimDirection.Normalize();
+                ProjectileManager.instance.FireProjectile(engiMortarProjectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimDirection), gameObject,
                 damageStat * damageCoefficient, force, Util.CheckRoll(critStat, characterBody.master), DamageColorIndex.Default, null, -1f);
-                Debug.Log("projectile prefab activation debug message");
+                
             }
         }
 
@@ -48,12 +49,14 @@ namespace SkillsReturns.SkillStates.Engineer
             {
                 outer.SetNextStateToMain();
                 return;
+
             }
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.PrioritySkill;
+
         }
     }
 }
