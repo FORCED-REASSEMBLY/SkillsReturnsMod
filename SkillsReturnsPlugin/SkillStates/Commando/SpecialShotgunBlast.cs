@@ -47,7 +47,7 @@ namespace SkillsReturns.SkillStates.Commando
                 BulletAttack ba = new BulletAttack
                 {
                     owner = gameObject,
-                    damage = damageStat * 2f,
+                    damage = damageStat * 3f,
                     procCoefficient = 1f,
                     force = 1f,
                     damageType = DamageType.Stun1s,

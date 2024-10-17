@@ -28,13 +28,12 @@ namespace SkillsReturns.SkillStates.Engineer
             StartAimMode(aimRay, 2f, false);
             Util.PlaySound("Play_MULT_m1_grenade_launcher_shoot", gameObject);
 
-
             if (isAuthority)
             {
                 Vector3 aimDirection = aimRay.direction;
                 aimDirection.y = 0f;
                 aimDirection.Normalize();
-                aimDirection.y = 1f;
+                aimDirection.y = 0.5f;
                 aimDirection.Normalize();
                 ProjectileManager.instance.FireProjectile(engiMortarProjectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimDirection), gameObject,
                 damageStat * damageCoefficient, force, Util.CheckRoll(critStat, characterBody.master), DamageColorIndex.Default, null, -1f);
@@ -49,7 +48,7 @@ namespace SkillsReturns.SkillStates.Engineer
             {
                 outer.SetNextStateToMain();
                 return;
-
+                
             }
         }
 

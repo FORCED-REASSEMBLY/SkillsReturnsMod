@@ -14,6 +14,7 @@ using SkillsReturns.SkillStates.Engineer;
 using System.Net.NetworkInformation;
 using RoR2.UI;
 using RoR2.Projectile;
+using UnityEngine.ProBuilder;
 
 
 namespace SkillsReturns.SkillSetup.Engineer
@@ -49,7 +50,7 @@ namespace SkillsReturns.SkillSetup.Engineer
             skillDef.rechargeStock = 1;
             skillDef.requiredStock = 1;
             skillDef.stockToConsume = 0;
-            skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("PointBlankIcon");
+            skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("MortarBarrageIcon");
 
             LanguageAPI.Add(SkillLangTokenName, "Mortar Barrage");
             LanguageAPI.Add(SkillLangTokenDesc, "Launch mortar rounds in an arc for <style=cIsDamage>100% damage</style>.");
@@ -67,7 +68,7 @@ namespace SkillsReturns.SkillSetup.Engineer
             EngiMortarRigidBody.mass = 1f;
             EngiMortarRigidBody.angularDrag = 300f;
             ProjectileSimple EngiMortarProjectileSimple = projectilePrefab.GetComponent<ProjectileSimple>();
-            EngiMortarProjectileSimple.desiredForwardSpeed = 25f
+            EngiMortarProjectileSimple.desiredForwardSpeed = 25f;
             ProjectileImpactExplosion EngiMortarImpactExplosion = projectilePrefab.GetComponent <ProjectileImpactExplosion>();
             EngiMortarImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
             EngiMortarImpactExplosion.lifetimeAfterImpact = 0;
@@ -75,6 +76,15 @@ namespace SkillsReturns.SkillSetup.Engineer
             EngiMortarImpactExplosion.explosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiGrenadeExplosion.prefab").WaitForCompletion();
             ProjectileDamage EngiMortarProjectileDamage = projectilePrefab.GetComponent<ProjectileDamage>();
             EngiMortarProjectileDamage.damageType = DamageType.Stun1s;
+            GameObject EngiMortar = Assets.mainAssetBundle.LoadAsset<GameObject>("EngiMortar"); ;
+            EngiMortar.AddComponent<ProjectileGhostController>();
+            //Better to set this in Unity than in-code.
+            //Make sure your projectile has no colliders in Unity as well.
+            EngiMortar.layer = LayerIndex.noCollision.intVal;
+            ProjectileController EngiMortarProjectileController = projectilePrefab.GetComponent<ProjectileController>();
+            EngiMortarProjectileController.ghostPrefab = EngiMortar;
+            EngiMortar.transform.Rotate(0, 0, 1f);
+
         }
 
 

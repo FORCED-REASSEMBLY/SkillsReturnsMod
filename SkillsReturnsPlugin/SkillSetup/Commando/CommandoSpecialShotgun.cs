@@ -49,7 +49,7 @@ namespace SkillsReturns.SkillSetup.Commando
             skillDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
 
             LanguageAPI.Add(SkillLangTokenName, "Point-Blank");
-            LanguageAPI.Add(SkillLangTokenDesc, "<style=cIsDamage>Stunning.</style> Fire a <style=cIsDamage>piercing</style> shotgun blast for <style=cIsDamage>6x200% damage</style>.");
+            LanguageAPI.Add(SkillLangTokenDesc, "<style=cIsDamage>Stunning.</style> Fire a <style=cIsDamage>piercing</style> shotgun blast for <style=cIsDamage>6x300% damage</style>.");
 
             if (ModCompat.AncientScepterCompat.pluginLoaded) BuildScepterSkill();
         }
