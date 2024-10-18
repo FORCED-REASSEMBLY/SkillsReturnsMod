@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{A58528E7-CA83-47EC-A9DC-85F58D2DF339}" SchemaVersion="119">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{A58528E7-CA83-47EC-A9DC-85F58D2DF339}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_SkillsReturns_Engi_Shoot" ID="{538097FF-CA01-4C49-937C-806A41506035}">
+					<ChildrenList>
+						<Action Name="" ID="{95435F59-D5D5-4B33-969D-E5AC0050AA96}" ShortID="571282738">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wEngiShoot" ID="{D372ECF1-3610-45D9-A96A-503A8382CE6A}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

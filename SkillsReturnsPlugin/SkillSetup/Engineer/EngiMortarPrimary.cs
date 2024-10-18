@@ -15,6 +15,7 @@ using System.Net.NetworkInformation;
 using RoR2.UI;
 using RoR2.Projectile;
 using UnityEngine.ProBuilder;
+using SkillsReturns.SkillSetup.Engineer.Components;
 
 
 namespace SkillsReturns.SkillSetup.Engineer
@@ -35,33 +36,50 @@ namespace SkillsReturns.SkillSetup.Engineer
 
         protected override void CreateSkillDef()
         {
-            base.CreateSkillDef();
-            skillDef.activationState = new SerializableEntityStateType(typeof(EngiMortarFire));
-            skillDef.activationStateMachineName = "Weapon";
-            skillDef.baseMaxStock = 1;
-            skillDef.baseRechargeInterval = 0f;
-            skillDef.beginSkillCooldownOnSkillEnd = false;
-            skillDef.canceledFromSprinting = false;
-            skillDef.cancelSprintingOnActivation = true;
-            skillDef.fullRestockOnAssign = true;
-            skillDef.interruptPriority = InterruptPriority.Skill;
-            skillDef.isCombatSkill = true;
-            skillDef.mustKeyPress = false;
-            skillDef.rechargeStock = 1;
-            skillDef.requiredStock = 1;
-            skillDef.stockToConsume = 0;
-            skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("MortarBarrageIcon");
+            //A SteppedSkillDef keeps track of a step variable, allowing you to do things like multi-hit melee combos or alternating gun barrels
+            //SteppedSkillDef inherits from SkillDef
+            SteppedSkillDef steppedSkill = ScriptableObject.CreateInstance<SteppedSkillDef>();
+            steppedSkill.skillName = SkillLangTokenName;
+            steppedSkill.skillNameToken = SkillLangTokenName;
+            steppedSkill.skillDescriptionToken = SkillLangTokenDesc;
+            steppedSkill.keywordTokens = new string[] { };
+            (steppedSkill as ScriptableObject).name = steppedSkill.skillName;
+
+            //SkillStates for SteppedSkillDefs implement the SteppedSkillDef.IStepSetter interface
+            //You can right click it to automatically generate the needed method
+            //See: Commando's pistols
+            steppedSkill.activationState = new SerializableEntityStateType(typeof(EngiMortarFire));
+            steppedSkill.activationStateMachineName = "Weapon";
+            steppedSkill.baseMaxStock = 1;
+            steppedSkill.baseRechargeInterval = 0f;
+            steppedSkill.beginSkillCooldownOnSkillEnd = false;
+            steppedSkill.canceledFromSprinting = false;
+            steppedSkill.cancelSprintingOnActivation = true;
+            steppedSkill.fullRestockOnAssign = true;
+            steppedSkill.interruptPriority = InterruptPriority.Skill;
+            steppedSkill.isCombatSkill = true;
+            steppedSkill.mustKeyPress = false;
+            steppedSkill.rechargeStock = 1;
+            steppedSkill.requiredStock = 1;
+            steppedSkill.stockToConsume = 0;
+            steppedSkill.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("MortarBarrageIcon");
+            steppedSkill.stepCount = 2; //2 steps, 1 for each barrel
+
+            skillDef = steppedSkill;    //We overwrite the SkillBase CreateSkillDef code and set the skillDef to be our new steppedSkill
 
             LanguageAPI.Add(SkillLangTokenName, "Mortar Barrage");
-            LanguageAPI.Add(SkillLangTokenDesc, "<style=cIsDamage>Slowing.</style> Launch mortar rounds in an arc for <style=cIsDamage>100% damage</style>.");
+            LanguageAPI.Add(SkillLangTokenDesc, "<style=cIsDamage>Slowing.</style> Launch mortar rounds in a fixed arc for <style=cIsDamage>100% damage</style>.");
         }
 
         protected override void CreateAssets()
         {
-
             GameObject projectilePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Toolbot/ToolbotGrenadeLauncherProjectile.prefab").WaitForCompletion()
             .InstantiateClone("SkillsReturnsEngiMortarProjectile", true);
             ContentAddition.AddProjectile(projectilePrefab);
+
+            //Hacky custom component to fix the rotation issue. Probably bad.
+            projectilePrefab.AddComponent<MortarPointAtForwardDirection>();
+
             EngiMortarFire.engiMortarProjectilePrefab = projectilePrefab;
             Rigidbody EngiMortarRigidBody = projectilePrefab.GetComponent<Rigidbody>();
             EngiMortarRigidBody.useGravity = true;
@@ -69,11 +87,12 @@ namespace SkillsReturns.SkillSetup.Engineer
             EngiMortarRigidBody.angularDrag = 300f;
             ProjectileSimple EngiMortarProjectileSimple = projectilePrefab.GetComponent<ProjectileSimple>();
             EngiMortarProjectileSimple.desiredForwardSpeed = 25f;
+
             ProjectileImpactExplosion EngiMortarImpactExplosion = projectilePrefab.GetComponent <ProjectileImpactExplosion>();
             EngiMortarImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
             EngiMortarImpactExplosion.lifetimeAfterImpact = 0;
             EngiMortarImpactExplosion.blastRadius = 5f;
-            EngiMortarImpactExplosion.explosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiGrenadeExplosion.prefab").WaitForCompletion();
+            EngiMortarImpactExplosion.impactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiGrenadeExplosion.prefab").WaitForCompletion();
             ProjectileDamage EngiMortarProjectileDamage = projectilePrefab.GetComponent<ProjectileDamage>();
             EngiMortarProjectileDamage.damageType = DamageType.SlowOnHit;
             GameObject EngiMortar = Assets.mainAssetBundle.LoadAsset<GameObject>("EngiMortar"); ;

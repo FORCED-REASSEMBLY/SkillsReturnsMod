@@ -14,10 +14,12 @@
 
   <ItemGroup>
     <None Remove="skillsreturnsbundle" />
+    <None Remove="SkillsReturnsSoundbank.bnk" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="skillsreturnsbundle" />
+    <EmbeddedResource Include="SkillsReturnsSoundbank.bnk" />
   </ItemGroup>
 
   <ItemGroup>

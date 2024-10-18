@@ -19,7 +19,7 @@ namespace SkillsReturns
     [BepInPlugin(
         "com.Forced_Reassembly.SkillsReturns",
         "Skills Returns",
-        "1.1.0")]
+        "1.4.3")]
     public class SkillsReturnsPlugin : BaseUnityPlugin
     {
         public static BepInEx.Configuration.ConfigFile configFile;
