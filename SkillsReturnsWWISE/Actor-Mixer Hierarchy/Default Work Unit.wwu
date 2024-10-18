@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}" SchemaVersion="119">
+	<AudioObjects>
+		<WorkUnit Name="Default Work Unit" ID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}" PersistMode="Standalone">
+			<ChildrenList>
+				<ActorMixer Name="Master Mixer" ID="{A69A0F7C-1C76-4A3C-B436-BC7E0880F6DC}" ShortID="669952464">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{F640AA5B-4A8C-44D9-8838-D6D2575877AC}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FB47828B-8960-449C-9CE3-EB3B53EE415A}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<ActorMixer Name="SFX Mixer" ID="{5AA0CC9F-0461-4792-B7CF-C8F846F36FE5}" ShortID="484164919">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="SFX Attenuation" ID="{0A5055F8-0CE5-41FC-A91E-FAE419EDE5AC}" WorkUnitID="{C332B291-9C7B-45E2-9B28-79E85E9134A8}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{F640AA5B-4A8C-44D9-8838-D6D2575877AC}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FB47828B-8960-449C-9CE3-EB3B53EE415A}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="wEngiShoot" ID="{D372ECF1-3610-45D9-A96A-503A8382CE6A}" ShortID="973680537">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>-600</Value>
+											</ValueList>
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{435DFF1A-BDA4-4C21-B346-4BB08B1A3B70}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="60"/>
+															<Property Name="Min" Type="Real64" Value="-60"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{F640AA5B-4A8C-44D9-8838-D6D2575877AC}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FB47828B-8960-449C-9CE3-EB3B53EE415A}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="wBanditShoot2" ID="{29E0711E-70FD-4B15-9A3A-A7EA6FFDB83E}">
+											<Language>SFX</Language>
+											<AudioFile>wBanditShoot2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="522204746"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="wBanditShoot2" ID="{29E0711E-70FD-4B15-9A3A-A7EA6FFDB83E}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{DD540009-EDAE-45FB-A990-4869C61B3261}" ShortID="489782933">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Volume"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="Volume_SFX" ID="{BCE36B2A-F965-45F4-8100-D7D9C95FA593}" WorkUnitID="{B72A9FCA-DE5F-46F7-B6CD-52481628F8AB}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{5070C340-ECA3-49AC-BC58-89AB540DD80F}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="3"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>-200</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>100</XPos>
+																		<YPos>0</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+						</ActorMixer>
+					</ChildrenList>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

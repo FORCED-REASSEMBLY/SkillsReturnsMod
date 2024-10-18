@@ -1,4 +1,5 @@
-﻿using System;
+﻿using R2API;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -19,6 +20,14 @@ namespace SkillsReturns
 
                 //Async method seems to have issues, so I'm using this.
                 ShaderSwapper.ShaderSwapper.UpgradeStubbedShaders(mainAssetBundle);
+            }
+
+            using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SkillsReturns.SkillsReturnsSoundbank.bnk"))
+            {
+
+                byte[] array = new byte[manifestResourceStream.Length];
+                manifestResourceStream.Read(array, 0, array.Length);
+                SoundAPI.SoundBanks.Add(array);
             }
         }
     }
