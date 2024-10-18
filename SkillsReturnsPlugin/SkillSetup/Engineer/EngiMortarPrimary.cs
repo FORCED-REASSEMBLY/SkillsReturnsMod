@@ -53,7 +53,7 @@ namespace SkillsReturns.SkillSetup.Engineer
             skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("MortarBarrageIcon");
 
             LanguageAPI.Add(SkillLangTokenName, "Mortar Barrage");
-            LanguageAPI.Add(SkillLangTokenDesc, "Launch mortar rounds in an arc for <style=cIsDamage>100% damage</style>.");
+            LanguageAPI.Add(SkillLangTokenDesc, "<style=cIsDamage>Slowing.</style> Launch mortar rounds in an arc for <style=cIsDamage>100% damage</style>.");
         }
 
         protected override void CreateAssets()
@@ -75,7 +75,7 @@ namespace SkillsReturns.SkillSetup.Engineer
             EngiMortarImpactExplosion.blastRadius = 5f;
             EngiMortarImpactExplosion.explosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiGrenadeExplosion.prefab").WaitForCompletion();
             ProjectileDamage EngiMortarProjectileDamage = projectilePrefab.GetComponent<ProjectileDamage>();
-            EngiMortarProjectileDamage.damageType = DamageType.Stun1s;
+            EngiMortarProjectileDamage.damageType = DamageType.SlowOnHit;
             GameObject EngiMortar = Assets.mainAssetBundle.LoadAsset<GameObject>("EngiMortar"); ;
             EngiMortar.AddComponent<ProjectileGhostController>();
             //Better to set this in Unity than in-code.
