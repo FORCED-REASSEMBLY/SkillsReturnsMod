@@ -16,6 +16,12 @@
 						<ActorMixer Name="SFX Mixer" ID="{5AA0CC9F-0461-4792-B7CF-C8F846F36FE5}" ShortID="484164919">
 							<PropertyList>
 								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-2</Value>
+									</ValueList>
+								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Attenuation">
