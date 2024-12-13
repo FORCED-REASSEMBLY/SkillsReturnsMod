@@ -43,8 +43,9 @@ namespace SkillsReturns.SkillStates.Commando
                     falloffModel = BlastAttack.FalloffModel.None,
                     baseForce = 0f,
                     bonusForce = Vector3.zero,
-                    damageType = (DamageTypeCombo) DamageType.Stun1s | DamageSource.Secondary,
-                    attackerFiltering = AttackerFiltering.NeverHitSelf
+                    damageType = DamageType.Stun1s,
+                    attackerFiltering = AttackerFiltering.NeverHitSelf,
+                    
 
                 };
                 ba.AddModdedDamageType(SkillSetup.Commando.CommandoKnife.knifeDamageType);

@@ -98,6 +98,8 @@ namespace SkillsReturns.SkillSetup.Bandit2
             GameObject smokeProjectilePrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Projectiles/CommandoGrenadeProjectile").InstantiateClone("SkillsReturns_SmokeGrenade", true);
             ProjectileController smokeProjectileController = smokeProjectilePrefab.GetComponent<ProjectileController>();
             ProjectileDamage smokeProjectileDamage = smokeProjectilePrefab.GetComponent<ProjectileDamage>();
+            smokeProjectileDamage.damageType = DamageType.Generic;
+            smokeProjectileDamage.damageType.damageSource = DamageSource.Primary;
             ProjectileSimple simple = smokeProjectilePrefab.GetComponent<ProjectileSimple>();
 
             //Make the initial grenade projectile able to stun on first hit

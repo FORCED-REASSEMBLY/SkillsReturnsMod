@@ -95,6 +95,7 @@ namespace SkillsReturns.SkillSetup.Engineer
             EngiMortarImpactExplosion.impactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiGrenadeExplosion.prefab").WaitForCompletion();
             ProjectileDamage EngiMortarProjectileDamage = projectilePrefab.GetComponent<ProjectileDamage>();
             EngiMortarProjectileDamage.damageType = DamageType.SlowOnHit;
+            EngiMortarProjectileDamage.damageType.damageSource = DamageSource.Primary; 
             GameObject EngiMortar = Assets.mainAssetBundle.LoadAsset<GameObject>("EngiMortar"); ;
             EngiMortar.AddComponent<ProjectileGhostController>();
             //Better to set this in Unity than in-code.
