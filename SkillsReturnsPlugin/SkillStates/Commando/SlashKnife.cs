@@ -44,7 +44,8 @@ namespace SkillsReturns.SkillStates.Commando
                     baseForce = 0f,
                     bonusForce = Vector3.zero,
                     damageType = DamageType.Stun1s,
-                    attackerFiltering = AttackerFiltering.NeverHitSelf
+                    attackerFiltering = AttackerFiltering.NeverHitSelf,
+                    
 
                 };
                 ba.AddModdedDamageType(SkillSetup.Commando.CommandoKnife.knifeDamageType);
