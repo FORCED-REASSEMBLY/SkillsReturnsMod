@@ -50,7 +50,7 @@ namespace SkillsReturns.SkillStates.Commando
                     damage = damageStat * 3f,
                     procCoefficient = 1f,
                     force = 1f,
-                    damageType = (DamageTypeCombo)DamageType.Stun1s | DamageSource.Secondary,
+                    damageType = (DamageTypeCombo) DamageType.Stun1s | DamageSource.Special,
                     falloffModel = BulletAttack.FalloffModel.DefaultBullet,
                     origin = aimRay.origin,
                     aimVector = aimRay.direction,
