@@ -43,7 +43,7 @@ namespace SkillsReturns.SkillStates.Commando
                     falloffModel = BlastAttack.FalloffModel.None,
                     baseForce = 0f,
                     bonusForce = Vector3.zero,
-                    damageType = DamageType.Stun1s,
+                    damageType = (DamageTypeCombo) DamageType.Stun1s | DamageSource.Secondary,
                     attackerFiltering = AttackerFiltering.NeverHitSelf
 
                 };
