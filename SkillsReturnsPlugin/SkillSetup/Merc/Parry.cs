@@ -40,10 +40,17 @@ namespace SkillsReturns.SkillSetup.Merc
         {
             if (NetworkServer.active)
             {
+                //Check for Void damage.
                 if (self.body.HasBuff(FireParry.parryBuff))
                 {
-                    self.body.AddTimedBuff(FireParry.parryBuff, 10f);   //duration is arbitrary
-                    damageInfo.rejected = true;
+                    bool isVoidDamage = !damageInfo.attacker && !damageInfo.inflictor
+                            && damageInfo.damageColorIndex == DamageColorIndex.Void
+                            && damageInfo.damageType == (DamageType.BypassArmor | DamageType.BypassBlock);
+                    if (!isVoidDamage)
+                    {
+                        self.body.AddTimedBuff(FireParry.parryBuff, 10f);   //duration is arbitrary
+                        damageInfo.rejected = true;
+                    }
                 }
             }
             orig(self, damageInfo);
