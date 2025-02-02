@@ -70,7 +70,7 @@ namespace SkillsReturns.SkillSetup.Merc
             skillDef.keywordTokens = new string[] { "KEYWORD_STUNNING", "KEYWORD_EXPOSE" };
 
             LanguageAPI.Add(SkillLangTokenName, "Focused Strike");
-            LanguageAPI.Add(SkillLangTokenDesc, "<style=cIsDamage>Stunning</style>. Hold to sheathe your weapon. Release before an incoming strike to <style=cIsDamage>parry</style> enemy attacks for <style=cIsDamage>500%-1500% damage</style>. Perfect parries <style=cIsUtility>Expose</style> enemies.");
+            LanguageAPI.Add(SkillLangTokenDesc, "Hold to sheathe your weapon. Release before an incoming strike to <style=cIsDamage>parry</style> enemy attacks for <style=cIsDamage>500%-1500% damage</style>. Perfect parries <style=cIsUtility>Expose</style> enemies.");
         }
 
         protected override void RegisterStates()
