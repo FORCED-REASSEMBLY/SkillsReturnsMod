@@ -59,7 +59,7 @@ namespace SkillsReturns.SkillSetup.Merc
             skillDef.rechargeStock = 1;
             skillDef.requiredStock = 1;
             skillDef.stockToConsume = 1;
-            skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("CombatKnifeIcon");
+            skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("ParryIcon");
             skillDef.keywordTokens = new string[] { "KEYWORD_STUNNING", "KEYWORD_EXPOSE" };
 
             LanguageAPI.Add(SkillLangTokenName, "Focused Strike");
