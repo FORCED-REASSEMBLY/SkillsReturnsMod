@@ -75,6 +75,116 @@
 										<ActiveSource Name="wBanditShoot2" ID="{29E0711E-70FD-4B15-9A3A-A7EA6FFDB83E}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="wMercenary_Parry_Deflection" ID="{E8A394AE-3A35-4CC8-AF9A-E108E72DA016}" ShortID="138850220">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{F640AA5B-4A8C-44D9-8838-D6D2575877AC}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FB47828B-8960-449C-9CE3-EB3B53EE415A}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="wMercenary_Parry_Deflection" ID="{AA282D7C-DCB5-4EFE-AAFC-914D92CE4387}">
+											<Language>SFX</Language>
+											<AudioFile>wMercenary_Parry_Deflection.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1066498810"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="wMercenary_Parry_Deflection" ID="{AA282D7C-DCB5-4EFE-AAFC-914D92CE4387}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="wMercenary_Parry_Ready" ID="{25FA2BB7-C1C4-4960-AE88-A82F415E8B21}" ShortID="395454884">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{F640AA5B-4A8C-44D9-8838-D6D2575877AC}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FB47828B-8960-449C-9CE3-EB3B53EE415A}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="wMercenary_Parry_Ready" ID="{2072FD17-78D4-414A-A958-A81F4DED1808}">
+											<Language>SFX</Language>
+											<AudioFile>wMercenary_Parry_Ready.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="257692020"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="wMercenary_Parry_Ready" ID="{2072FD17-78D4-414A-A958-A81F4DED1808}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="wMercenary_Parry_Release" ID="{117C5BB3-4BBC-42ED-A504-0C7EFBF82E6E}" ShortID="601178931">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{F640AA5B-4A8C-44D9-8838-D6D2575877AC}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FB47828B-8960-449C-9CE3-EB3B53EE415A}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="wMercenary_Parry_Release" ID="{1D0BFE95-F700-4065-98EA-497B5FD1A9EF}">
+											<Language>SFX</Language>
+											<AudioFile>wMercenary_Parry_Release.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="307278409"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="wMercenary_Parry_Release" ID="{1D0BFE95-F700-4065-98EA-497B5FD1A9EF}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="wMercenary_Parry_StandardSlash" ID="{7593CBCC-4F4E-43CA-9214-431E268E3545}" ShortID="571519298">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{F640AA5B-4A8C-44D9-8838-D6D2575877AC}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FB47828B-8960-449C-9CE3-EB3B53EE415A}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="wMercenary_Parry_StandardSlash" ID="{97382C35-1B2C-4E5C-83D4-634976975F84}">
+											<Language>SFX</Language>
+											<AudioFile>wMercenary_Parry_StandardSlash.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="460823215"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="wMercenary_Parry_StandardSlash" ID="{97382C35-1B2C-4E5C-83D4-634976975F84}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="wMercenary_Parry_SuccessfulSlash" ID="{FC6F09FC-26FF-4E69-B25F-753E4D464286}" ShortID="602741329">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{F640AA5B-4A8C-44D9-8838-D6D2575877AC}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FB47828B-8960-449C-9CE3-EB3B53EE415A}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="wMercenary_Parry_SuccessfulSlash" ID="{66AF530F-DA95-40FD-BC62-4A7606235BFF}">
+											<Language>SFX</Language>
+											<AudioFile>wMercenary_Parry_SuccessfulSlash.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="490241224"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="wMercenary_Parry_SuccessfulSlash" ID="{66AF530F-DA95-40FD-BC62-4A7606235BFF}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 							<ObjectLists>
 								<ObjectList Name="RTPC">

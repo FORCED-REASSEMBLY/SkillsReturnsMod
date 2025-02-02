@@ -5,7 +5,12 @@
 			<ChildrenList>
 				<SoundBank Name="SkillsReturnsSoundbank" ID="{5FBD555F-39C0-4D40-9EF9-CDC713B88C48}">
 					<ObjectInclusionList>
+						<ObjectRef Name="Play_SkillsReturns_Merc_Parry_Release" ID="{FB2FB8CB-B74C-45C1-9399-EA55C26E42D3}" WorkUnitID="{A58528E7-CA83-47EC-A9DC-85F58D2DF339}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SkillsReturns_Merc_Parry_Ready" ID="{53580949-F018-45C5-895B-CE9AD4FE2E18}" WorkUnitID="{A58528E7-CA83-47EC-A9DC-85F58D2DF339}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SkillsReturns_Merc_Parry_SuccessfulSlash" ID="{846E9A26-EEFB-4945-87C9-0E2DC080C332}" WorkUnitID="{A58528E7-CA83-47EC-A9DC-85F58D2DF339}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SkillsReturns_Merc_Parry_StandardSlash" ID="{E71AE9CF-98E6-4C27-8180-1B0FAD73229C}" WorkUnitID="{A58528E7-CA83-47EC-A9DC-85F58D2DF339}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_SkillsReturns_Engi_Shoot" ID="{538097FF-CA01-4C49-937C-806A41506035}" WorkUnitID="{A58528E7-CA83-47EC-A9DC-85F58D2DF339}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SkillsReturns_Merc_Parry_Deflect" ID="{65300968-E9EC-4EC8-98C8-A5B2807BFB7F}" WorkUnitID="{A58528E7-CA83-47EC-A9DC-85F58D2DF339}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
