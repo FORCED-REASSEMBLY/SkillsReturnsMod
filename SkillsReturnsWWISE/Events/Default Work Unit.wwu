@@ -69,6 +69,28 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_SkillsReturns_Bandit_Dynamite_Throw" ID="{5691B373-223B-4ED7-8227-1F50AE4F4246}">
+					<ChildrenList>
+						<Action Name="" ID="{9BE45B9A-05DE-4BFA-9AF2-46FC29C7C32D}" ShortID="238609658">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wBanditShoot2" ID="{FD8D95B9-A3B2-42A8-BB51-247D02C176C9}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SkillsReturns_Bandit_Dynamite_Explo" ID="{0E63DA7A-9BC9-46D9-86E7-A5E6D453BD64}">
+					<ChildrenList>
+						<Action Name="" ID="{0B579645-2372-47D4-8805-773B752EFD20}" ShortID="535962803">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wBanditShoot2Explo" ID="{2039A9E6-6C9B-4FF1-8CD6-FA0BDC8F9031}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
