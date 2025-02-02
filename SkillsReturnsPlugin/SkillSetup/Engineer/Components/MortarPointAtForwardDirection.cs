@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace SkillsReturns.SkillSetup.Engineer.Components
 {
@@ -14,7 +15,7 @@ namespace SkillsReturns.SkillSetup.Engineer.Components
         private void Awake()
         {
             rigidBody = base.GetComponent<Rigidbody>();
-            if (!rigidBody) Destroy(this);
+            if (!NetworkServer.active || !rigidBody) Destroy(this); //Added netework check to attempt to fix online issues
         }
 
         private void FixedUpdate()

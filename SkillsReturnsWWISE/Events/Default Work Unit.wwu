@@ -14,6 +14,83 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_SkillsReturns_Merc_Parry_Deflect" ID="{65300968-E9EC-4EC8-98C8-A5B2807BFB7F}">
+					<ChildrenList>
+						<Action Name="" ID="{CC9540F1-9220-4156-A70C-F189FF9B53BD}" ShortID="513054003">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wMercenary_Parry_Deflection" ID="{E8A394AE-3A35-4CC8-AF9A-E108E72DA016}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SkillsReturns_Merc_Parry_Ready" ID="{53580949-F018-45C5-895B-CE9AD4FE2E18}">
+					<ChildrenList>
+						<Action Name="" ID="{8F41E1D8-B7F1-4730-986F-72D08E30B1BF}" ShortID="1056752558">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wMercenary_Parry_Ready" ID="{25FA2BB7-C1C4-4960-AE88-A82F415E8B21}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SkillsReturns_Merc_Parry_Release" ID="{FB2FB8CB-B74C-45C1-9399-EA55C26E42D3}">
+					<ChildrenList>
+						<Action Name="" ID="{4C9C3CEB-EA64-4EF4-89D1-7041FEAE34F6}" ShortID="338216822">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wMercenary_Parry_Release" ID="{117C5BB3-4BBC-42ED-A504-0C7EFBF82E6E}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SkillsReturns_Merc_Parry_StandardSlash" ID="{E71AE9CF-98E6-4C27-8180-1B0FAD73229C}">
+					<ChildrenList>
+						<Action Name="" ID="{48F0E3C1-476E-41A3-9422-D644B729197A}" ShortID="831102286">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wMercenary_Parry_StandardSlash" ID="{7593CBCC-4F4E-43CA-9214-431E268E3545}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SkillsReturns_Merc_Parry_SuccessfulSlash" ID="{846E9A26-EEFB-4945-87C9-0E2DC080C332}">
+					<ChildrenList>
+						<Action Name="" ID="{F9F5F6DE-266A-445C-A67F-8542A97195CA}" ShortID="784753568">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wMercenary_Parry_SuccessfulSlash" ID="{FC6F09FC-26FF-4E69-B25F-753E4D464286}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SkillsReturns_Bandit_Dynamite_Throw" ID="{5691B373-223B-4ED7-8227-1F50AE4F4246}">
+					<ChildrenList>
+						<Action Name="" ID="{9BE45B9A-05DE-4BFA-9AF2-46FC29C7C32D}" ShortID="238609658">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wBanditShoot2" ID="{FD8D95B9-A3B2-42A8-BB51-247D02C176C9}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SkillsReturns_Bandit_Dynamite_Explo" ID="{0E63DA7A-9BC9-46D9-86E7-A5E6D453BD64}">
+					<ChildrenList>
+						<Action Name="" ID="{0B579645-2372-47D4-8805-773B752EFD20}" ShortID="535962803">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wBanditShoot2Explo" ID="{2039A9E6-6C9B-4FF1-8CD6-FA0BDC8F9031}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
