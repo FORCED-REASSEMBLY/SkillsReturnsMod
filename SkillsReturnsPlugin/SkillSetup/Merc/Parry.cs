@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using R2API;
+using RoR2;
 using RoR2.Skills;
 using SkillsReturns.SkillStates.Merc.Parry;
 using UnityEngine;
@@ -23,13 +24,19 @@ namespace SkillsReturns.SkillSetup.Merc
             FireParry.soundSlashStandard = Utilities.CreateNetworkSoundEventDef("Play_SkillsReturns_Merc_Parry_StandardSlash");
             FireParry.soundSlashSuccessful = Utilities.CreateNetworkSoundEventDef("Play_SkillsReturns_Merc_Parry_SuccessfulSlash");
             FireParry.parryBuff = Utilities.CreateBuffDef("SkillsReturnsMercParry", true, false, false, Color.white, null, true);
-        }
-        protected override void Hooks()
-        {
-            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+
+            FireParry.startEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Merc/MercExposeConsumeEffect.prefab").WaitForCompletion().InstantiateClone("SkillsReturnsParryReadyEffect", false);
+            EffectComponent ec = FireParry.startEffect.GetComponent<EffectComponent>();
+            ec.soundName = "";
+            R2API.ContentAddition.AddEffect(FireParry.startEffect);
         }
 
-        private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, RoR2.HealthComponent self, RoR2.DamageInfo damageInfo)
+        protected override void Hooks()
+        {
+            On.RoR2.HealthComponent.TakeDamage += HandleParry;
+        }
+
+        private void HandleParry(On.RoR2.HealthComponent.orig_TakeDamage orig, RoR2.HealthComponent self, RoR2.DamageInfo damageInfo)
         {
             if (NetworkServer.active)
             {

@@ -20,7 +20,9 @@ namespace SkillsReturns.SkillStates.Merc.Parry
         public static NetworkSoundEventDef soundSlashStandard;
         public static NetworkSoundEventDef soundSlashSuccessful;
         public static NetworkSoundEventDef soundDeflect;
+        public static GameObject startEffect;
         public static GameObject impactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Merc/OmniImpactVFXSlashMerc.prefab").WaitForCompletion();
+        public static GameObject slashEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Merc/MercSwordSlashWhirlwind.prefab").WaitForCompletion();
 
         public static float damageCoefficient = 5f;
         public static float perfectDamageCoefficient = 15f;
@@ -42,17 +44,15 @@ namespace SkillsReturns.SkillStates.Merc.Parry
             Util.PlaySound("Play_SkillsReturns_Merc_Parry_Release", base.gameObject);
             duration = baseDuration / attackSpeedStat;
 
+            PlayAnimation("FullBody, Override", "GroundLight2", "GroundLight.playbackRate", duration);
+            if (startEffect) EffectManager.SimpleImpactEffect(startEffect, base.transform.position, Vector3.up, false);
+
             if (NetworkServer.active)
             {
                 if (characterBody)
                 {
                     characterBody.AddTimedBuff(parryBuff, 10f); //duration is arbitrary
                 }
-            }
-
-            if (isAuthority && characterMotor)
-            {
-                characterMotor.velocity = new Vector3(characterMotor.velocity.x, 0f, characterMotor.velocity.z);
             }
         }
 
@@ -61,11 +61,6 @@ namespace SkillsReturns.SkillStates.Merc.Parry
             base.FixedUpdate();
 
             ApplyHitboxModifier();
-
-            if (isAuthority && characterMotor)
-            {
-                characterMotor.velocity = new Vector3(characterMotor.velocity.x, 0f, characterMotor.velocity.z);
-            }
 
             if (NetworkServer.active && characterBody && !attackFired)
             {
@@ -96,25 +91,43 @@ namespace SkillsReturns.SkillStates.Merc.Parry
 
         public override void OnExit()
         {
-            if (!attackFired) FireAttackServer();
             RemoveHitboxModifier();
-            //Remember to reset animation state
+            if (!attackFired) FireAttackServer();
+
+            if (NetworkServer.active && characterBody)
+            {
+                characterBody.ClearTimedBuffs(parryBuff);
+            }
+
+            Animator animator = GetModelAnimator();
+            if (animator)
+            {
+                int layerIndex = animator.GetLayerIndex("Impact");
+                if (layerIndex >= 0)
+                {
+                    animator.SetLayerWeight(layerIndex, 3f);
+                    PlayAnimation("Impact", "LightImpact");
+                }
+            }
+
             base.OnExit();
         }
 
         //Play the attack anims locally.
         private void FireAttack()
         {
+            if (attackFired) return;
             if (NetworkServer.active) FireAttackServer();
 
-            //Play animation here
+            attackFired = true;
+            PlayCrossfade("FullBody, Override", "WhirlwindGround", "Whirlwind.playbackRate", duration, 0.1f);
+            if (slashEffect) EffectManager.SimpleMuzzleFlash(slashEffect, base.gameObject, "WhirlwindGround", false);
         }
 
         //Fire the actual attack. Only the server knows whether you actually parried.
         private void FireAttackServer()
         {
             if (!NetworkServer.active || attackFired) return;
-            attackFired = true;
 
             bool isParry = parryCount > 0;
             if (characterBody)
@@ -128,8 +141,6 @@ namespace SkillsReturns.SkillStates.Merc.Parry
 
             NetworkSoundEventDef attackSound = isParry ? soundSlashSuccessful : soundSlashStandard;
             if (attackSound) EffectManager.SimpleSoundEffect(attackSound.index, base.transform.position, true);
-
-            //Handle damage here
 
             EffectIndex effectIndex = EffectIndex.Invalid;
             if (impactEffect)
@@ -161,7 +172,14 @@ namespace SkillsReturns.SkillStates.Merc.Parry
                 impactEffect = effectIndex
             }.Fire();
 
-            //Spawn VFX here
+            if (isParry)
+            {
+                //Taken from Nuxlar's mod
+                EffectManager.SimpleImpactEffect(EntityStates.Merc.Evis.hitEffectPrefab, this.characterBody.corePosition, Vector3.one, true);
+                EffectManager.SimpleImpactEffect(EntityStates.Merc.Evis.hitEffectPrefab, this.characterBody.corePosition, Vector3.zero, true);
+                EffectManager.SimpleImpactEffect(EntityStates.Merc.Evis.hitEffectPrefab, this.characterBody.corePosition, Vector3.left, true);
+                EffectManager.SimpleImpactEffect(EntityStates.Merc.Evis.hitEffectPrefab, this.characterBody.corePosition, Vector3.right, true);
+            }
         }
 
         //Increase hitbox size to make it easier to parry melee enemies.

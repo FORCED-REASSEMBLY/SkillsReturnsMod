@@ -2,6 +2,7 @@
 using RoR2;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace SkillsReturns
 {

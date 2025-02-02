@@ -1,13 +1,14 @@
 ﻿using EntityStates;
 using RoR2;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace SkillsReturns.SkillStates.Merc.Parry
 {
     public class PrepParry : BaseState
     {
         public static float baseStartDelay = 0.25f;
-
+        public static GameObject readyEffect;
         private bool playedReadySound = false;
         private float startDelay;
 
@@ -16,8 +17,7 @@ namespace SkillsReturns.SkillStates.Merc.Parry
             base.OnEnter();
             startDelay = baseStartDelay / attackSpeedStat;
             Util.PlayAttackSpeedSound("Play_SkillsReturns_Merc_Parry_Ready", base.gameObject, base.attackSpeedStat);
-
-            //Play sheathe animation
+            PlayCrossfade("FullBody, Override", "GroundLight2", "GroundLight.playbackRate", 999f, startDelay);
         }
 
         public override void FixedUpdate()
@@ -39,7 +39,7 @@ namespace SkillsReturns.SkillStates.Merc.Parry
 
         public override void OnExit()
         {
-            //Remember to reset animation state
+            PlayAnimation("FullBody, Override", "Empty");
             base.OnExit();
         }
 
