@@ -101,7 +101,9 @@ namespace SkillsReturns.SkillSetup.Bandit2
                                 pd.damage *= 1.5f;
 
                                 //Transfer damageType to explosion
-                                pd.damageType.damageType |= damageInfo.damageType.damageType;
+                                pd.damageType = damageInfo.damageType;
+                                pd.damageType.damageSource = DamageSource.Secondary;
+                                pd.damageType.damageType |= DamageType.IgniteOnHit | DamageType.AOE;
                                 damageInfo.damageType = DamageTypeCombo.GenericSpecial;
 
                                 DynamiteNetworkCommands nc = damageInfo.attacker.GetComponent<DynamiteNetworkCommands>();
