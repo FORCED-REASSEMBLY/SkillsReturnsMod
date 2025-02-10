@@ -17,6 +17,11 @@
 							<PropertyList>
 								<Property Name="3DSpatialization" Type="int16" Value="2"/>
 								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>100</Value>
+									</ValueList>
+								</Property>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
 										<Value>-2</Value>
@@ -211,7 +216,7 @@
 									<PropertyList>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>2</Value>
+												<Value>3</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -234,6 +239,86 @@
 									</ChildrenList>
 									<ActiveSourceList>
 										<ActiveSource Name="wBanditShoot2Explo" ID="{88095604-C4B2-43C5-A3DE-1B285881B241}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="wHuntress_Charge" ID="{5651C2D9-296D-4219-B1AB-7E0F363B02EF}" ShortID="1038997704">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>400</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{F640AA5B-4A8C-44D9-8838-D6D2575877AC}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FB47828B-8960-449C-9CE3-EB3B53EE415A}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="wMercenary_Parry_Deflection" ID="{A3C6B76B-1467-4B8D-AB28-5337B941353D}">
+											<Language>SFX</Language>
+											<AudioFile>wMercenary_Parry_Deflection.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1066498810"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="wMercenary_Parry_Deflection" ID="{A3C6B76B-1467-4B8D-AB28-5337B941353D}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="wHuntressShoot1" ID="{AF29B950-599F-4FB8-B091-125D4AA69213}" ShortID="872736388">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{F640AA5B-4A8C-44D9-8838-D6D2575877AC}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FB47828B-8960-449C-9CE3-EB3B53EE415A}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="wHuntressShoot1" ID="{42CA48AE-FE57-4BE6-B8A8-E06220436157}">
+											<Language>SFX</Language>
+											<AudioFile>wHuntressShoot1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="338809482"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="wHuntressShoot1" ID="{42CA48AE-FE57-4BE6-B8A8-E06220436157}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="wHuntressShoot1_Charged" ID="{16FDC118-0A9D-40CF-A19B-88E3E40F28A5}" ShortID="457673617">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>400</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{F640AA5B-4A8C-44D9-8838-D6D2575877AC}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FB47828B-8960-449C-9CE3-EB3B53EE415A}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="wHuntressShoot1" ID="{4459665A-3D76-4FF5-8332-93E32FC8F6DD}">
+											<Language>SFX</Language>
+											<AudioFile>wHuntressShoot1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="338809482"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="wHuntressShoot1" ID="{4459665A-3D76-4FF5-8332-93E32FC8F6DD}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>

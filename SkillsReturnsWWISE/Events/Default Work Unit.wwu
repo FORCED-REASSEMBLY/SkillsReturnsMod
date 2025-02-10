@@ -91,6 +91,39 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_SkillsReturns_Huntress_ChargeBow_Ready" ID="{22A1579F-A1B5-4C19-BD27-14A434793208}">
+					<ChildrenList>
+						<Action Name="" ID="{7C944E25-A15A-4140-BF65-020B230540C6}" ShortID="161916027">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wHuntress_Charge" ID="{5651C2D9-296D-4219-B1AB-7E0F363B02EF}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SkillsReturns_Huntress_ChargeBow_Shoot" ID="{AED7D539-38F1-4FFF-AF03-9A3F64AB10DE}">
+					<ChildrenList>
+						<Action Name="" ID="{5794E931-F4B7-485E-B9C2-33EC0821C333}" ShortID="494376450">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wHuntressShoot1" ID="{AF29B950-599F-4FB8-B091-125D4AA69213}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SkillsReturns_Huntress_ChargeBow_ShootCharged" ID="{3BC4ED67-A8D2-46A4-A2E0-521C7EEE1822}">
+					<ChildrenList>
+						<Action Name="" ID="{C7A4D83C-9084-4B15-9624-FE4E0F37858D}" ShortID="628667664">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wHuntressShoot1_Charged" ID="{16FDC118-0A9D-40CF-A19B-88E3E40F28A5}" WorkUnitID="{190C3FAF-9BD2-4248-99CF-EC54BB9F4BFB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
