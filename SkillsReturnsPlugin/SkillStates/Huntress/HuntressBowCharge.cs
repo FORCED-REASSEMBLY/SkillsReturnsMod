@@ -4,15 +4,9 @@ using R2API;
 using RoR2.Skills;
 using System;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
-using MonoMod.Cil;
-using Mono.Cecil.Cil;
-using SkillsReturns.SharedHooks;
-using System.Net.NetworkInformation;
-using EntityStates.Huntress;
-using EntityStates.Huntress.HuntressWeapon;
 using EntityStates.Captain.Weapon;
+using UnityEngine.AddressableAssets;
+using RoR2.UI;
 
 namespace SkillsReturns.SkillStates.Huntress
 {
@@ -20,28 +14,24 @@ namespace SkillsReturns.SkillStates.Huntress
     {
         public static float baseMinDuration = 0.5f;
         public static float baseChargeDuration = 1.5f;
-        private float minChargeDuration = 0.5f;
-        private float maxChargeDuration = 3f;
-        private float chargeDuration;
-        private float charge;
-        public float chargePercent;
+        private float minDuration;
+        public float chargeDuration;
+        private bool playedChargeSound = false;
+        public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressSnipeCrosshair.prefab").WaitForCompletion();
+        private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
+
         public override void OnEnter()
         {
             base.OnEnter();
-            Util.PlaySound(FireCaptainShotgun.wideSoundString, gameObject);
-            this.minChargeDuration = minChargeDuration / this.attackSpeedStat;
-            if (base.characterBody)
-            {
-                base.characterBody.SetAimTimer(minChargeDuration);
-            }
-            charge = 0f;
-            chargePercent = 0f;
+            Util.PlaySound("Play_huntress_m1_ready", gameObject);
             chargeDuration = HuntressBowCharge.baseChargeDuration / this.attackSpeedStat;
-
+            minDuration = HuntressBowCharge.baseMinDuration / this.attackSpeedStat;
+            crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
         }
 
         public override void OnExit()
         {
+            if (crosshairOverrideRequest != null) crosshairOverrideRequest.Dispose();
             base.OnExit();
         }
 
@@ -49,28 +39,35 @@ namespace SkillsReturns.SkillStates.Huntress
         {
             base.FixedUpdate();
 
-            if (base.characterBody)
+            if (isAuthority)
             {
-                base.characterBody.SetAimTimer(maxChargeDuration);
-            }
-            if (base.fixedAge > this.minChargeDuration && charge < chargeDuration)
-            {
-                Util.PlaySound("Play_bandit2_m2_impact", gameObject);
-                chargePercent = Mathf.Max(0f, (charge - baseMinDuration) / (baseChargeDuration - baseMinDuration));
-            }
-            if (base.fixedAge >= this.minChargeDuration)
-            {
-                if (base.isAuthority && (base.inputBank && !base.inputBank.skill2.down))
+                if (!playedChargeSound && CalculateChargePercent() > 1f)
                 {
-                    this.outer.SetNextState(new HuntressChargeArrowFire());
+                    playedChargeSound = true;
+                    Util.PlaySound("Play_huntress_m1_unready", base.gameObject);
+
+                }
+
+                bool shouldExit = base.inputBank && !base.inputBank.skill1.down && base.fixedAge >= minDuration;
+                if (shouldExit)
+                {
+                    this.outer.SetNextState(new HuntressChargeArrowFire()
+                    {
+                        chargeFraction = CalculateChargePercent()
+                    });
                     return;
                 }
+
             }
+        }
+        public float CalculateChargePercent()
+        {
+            return Mathf.Lerp(0f, 1f, fixedAge / chargeDuration);
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.PrioritySkill;
         }
-    }
+    } 
 }

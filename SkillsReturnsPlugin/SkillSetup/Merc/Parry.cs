@@ -50,6 +50,7 @@ namespace SkillsReturns.SkillSetup.Merc
                     {
                         self.body.AddTimedBuff(FireParry.parryBuff, 10f);   //duration is arbitrary
                         damageInfo.rejected = true;
+                        return; // this is to prevent onHitAll
                     }
                 }
             }

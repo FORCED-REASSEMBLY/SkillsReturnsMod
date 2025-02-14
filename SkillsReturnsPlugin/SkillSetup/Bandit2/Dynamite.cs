@@ -104,6 +104,7 @@ namespace SkillsReturns.SkillSetup.Bandit2
                                 pd.damageType = damageInfo.damageType;
                                 pd.damageType.damageSource = DamageSource.Secondary;
                                 pd.damageType.damageType |= DamageType.IgniteOnHit | DamageType.AOE;
+                                pd.damageType.damageType &= ~DamageType.BonusToLowHealth;
                                 damageInfo.damageType = DamageTypeCombo.GenericSpecial;
 
                                 DynamiteNetworkCommands nc = damageInfo.attacker.GetComponent<DynamiteNetworkCommands>();

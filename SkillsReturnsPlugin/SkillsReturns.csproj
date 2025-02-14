@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="SkillSetup\Huntress\HuntressChargePrimary.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="skillsreturnsbundle" />
     <None Remove="SkillsReturnsSoundbank.bnk" />
   </ItemGroup>
@@ -24,10 +20,6 @@
   <ItemGroup>
     <EmbeddedResource Include="skillsreturnsbundle" />
     <EmbeddedResource Include="SkillsReturnsSoundbank.bnk" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="SkillSetup\Huntress\HuntressChargePrimary.cs" />
   </ItemGroup>
 
   <ItemGroup>

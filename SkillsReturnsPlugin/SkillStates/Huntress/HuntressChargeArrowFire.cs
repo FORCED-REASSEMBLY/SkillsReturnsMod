@@ -4,15 +4,24 @@ using UnityEngine;
 using R2API;
 using UnityEngine.AddressableAssets;
 using EntityStates.Huntress.HuntressWeapon;
+using RoR2.UI;
+using RoR2.Projectile;
 
 namespace SkillsReturns.SkillStates.Huntress
 {
     internal class HuntressChargeArrowFire : EntityStates.BaseSkillState
     {
-        public static GameObject arrowBulletEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/FlurryArrowOrbEffect.prefab").WaitForCompletion();
-        public static GameObject arrowHitSparkEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Bandit2/HitsparkBandit.prefab").WaitForCompletion();
+        
         public static float baseDuration = 0.5f;
         private float duration;
+        public float chargeFraction;
+        public static GameObject ProjectilePrefab;
+        public float minForce = 1000;
+        public float maxForce = 2000;   
+        public static float minDamageCoefficient = 2f;
+        public static float maxDamageCoefficient = 10f;
+        public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressSnipeCrosshair.prefab").WaitForCompletion();
+        private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
 
         public override void OnEnter()
         {
@@ -20,43 +29,16 @@ namespace SkillsReturns.SkillStates.Huntress
             duration = baseDuration / attackSpeedStat;
             Ray aimRay = GetAimRay();
             StartAimMode(aimRay, 2f, false);
-            Util.PlaySound(FireArrow.attackSoundString, base.gameObject);
+            Util.PlaySound("Play_huntress_R_snipe_shoot", base.gameObject);
+            crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
 
-            if (arrowHitSparkEffectPrefab)
-            {
-                EffectManager.SimpleMuzzleFlash(arrowHitSparkEffectPrefab, gameObject, "MuzzleRight", false);
-            }
-
-            if (arrowBulletEffectPrefab)
-            {
-                EffectManager.SimpleMuzzleFlash(arrowBulletEffectPrefab, gameObject, "MuzzleRight", false);
-            }
+            
 
             if (isAuthority)
             {
-                BulletAttack ba = new BulletAttack
-                {
-                    owner = gameObject,
-                    damage = damageStat * 10f,
-                    procCoefficient = 1f,
-                    force = 1f,
-                    damageType = DamageType.Generic,
-                    falloffModel = BulletAttack.FalloffModel.DefaultBullet,
-                    origin = aimRay.origin,
-                    aimVector = aimRay.direction,
-                    maxDistance = 200f,
-                    radius = 1f,
-                    bulletCount = 1,
-                    minSpread = 0f,
-                    maxSpread = 0f,
-                    filterCallback = BulletAttack.defaultFilterCallback,
-                    hitCallback = BulletAttack.defaultHitCallback,
-                    stopperMask = LayerIndex.world.collisionMask,
-                    isCrit = base.RollCrit(),
-                    tracerEffectPrefab = arrowBulletEffectPrefab,
-                    hitEffectPrefab = arrowHitSparkEffectPrefab,
-
-                }; ba.Fire();
+                Vector3 aimDirection = aimRay.direction;
+                ProjectileManager.instance.FireProjectile(ProjectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimDirection), gameObject,
+                damageStat * Mathf.Lerp(minDamageCoefficient, maxDamageCoefficient, chargeFraction), Mathf.Lerp(minForce, maxForce, chargeFraction), base.RollCrit(), DamageColorIndex.Default, null, 500f);
             }
         }
 
@@ -77,6 +59,6 @@ namespace SkillsReturns.SkillStates.Huntress
         
     }
 
-
+    
 }
 

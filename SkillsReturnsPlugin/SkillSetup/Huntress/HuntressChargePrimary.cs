@@ -6,10 +6,8 @@ using SkillsReturns.SkillStates.Huntress;
 using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
-using MonoMod.Cil;
-using Mono.Cecil.Cil;
-using SkillsReturns.SharedHooks;
+using RoR2.Projectile;
+using SkillsReturns.SkillStates.Bandit2.Dynamite;
 
 namespace SkillsReturns.SkillSetup.Huntress
 {
@@ -43,9 +41,25 @@ namespace SkillsReturns.SkillSetup.Huntress
             skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("CombatKnifeIcon");
 
             LanguageAPI.Add(SkillLangTokenName, "Pierce");
-            LanguageAPI.Add(SkillLangTokenDesc, "<style=cIsDamage>Slow down</style> and charge up a <style=cIsDamage>Piercing</style> arrow for <style=cIsDamage>200%-1000%</style> damage.");
+            LanguageAPI.Add(SkillLangTokenDesc, "<style=cIsDamage>Slow down</style> and charge up a <style=cIsDamage>Piercing</style> arrow for <style=cIsDamage>300%-900%</style> damage.");
         }
+        protected override void CreateAssets()
+        {
+            GameObject chargeArrowProjectilePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/FMJRamping.prefab").WaitForCompletion().InstantiateClone("SkillsReturnsHuntressChargeArrowProjectile", true);
+            ContentAddition.AddProjectile(chargeArrowProjectilePrefab);
 
+            ProjectileController pc = chargeArrowProjectilePrefab.GetComponent<ProjectileController>();
+            pc.ghostPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/Huntress/ArrowGhost.prefab").WaitForCompletion();
+            pc.allowPrediction = true;
+
+            ProjectileOverlapAttack poa = chargeArrowProjectilePrefab.GetComponent<ProjectileOverlapAttack>();
+            poa.onServerHit = null;
+            poa.impactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/OmniImpactVFXHuntress.prefab").WaitForCompletion();
+           
+            R2API.ContentAddition.AddProjectile(chargeArrowProjectilePrefab);
+            HuntressChargeArrowFire.ProjectilePrefab = chargeArrowProjectilePrefab;
+
+        }
         protected override void RegisterStates()
         {
             ContentAddition.AddEntityState(typeof(HuntressBowCharge), out bool wasAdded);
