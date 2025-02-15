@@ -22,6 +22,7 @@ namespace SkillsReturns.SkillStates.Huntress
         public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/StandardCrosshair.prefab").WaitForCompletion();
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
         private Animator animator;
+        private bool changedState;
 
         private float origPlaybackRate;
 
@@ -34,9 +35,9 @@ namespace SkillsReturns.SkillStates.Huntress
             crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
             StartAimMode(GetAimRay(), 2f, false);
 
-            //Hacky: Multiply duration. Freeze animation at full charge.
-            base.PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", chargeDuration * 2.2f, chargeDuration * 0.2f / this.attackSpeedStat);
-            base.PlayCrossfade("Gesture, Additive", "FireSeekingShot", "FireSeekingShot.playbackRate", chargeDuration * 2.2f, chargeDuration * 0.2f / this.attackSpeedStat);
+            //Hacky: Multiply duration. Freeze animation at full charge. Extend duration to make the anim work better.
+            base.PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", chargeDuration * 2.3f, chargeDuration * 0.2f / this.attackSpeedStat);
+            base.PlayCrossfade("Gesture, Additive", "FireSeekingShot", "FireSeekingShot.playbackRate", chargeDuration * 2.3f, chargeDuration * 0.2f / this.attackSpeedStat);
 
             animator = base.GetModelAnimator();
             if (animator)
@@ -50,8 +51,12 @@ namespace SkillsReturns.SkillStates.Huntress
             if (crosshairOverrideRequest != null) crosshairOverrideRequest.Dispose();
 
             //Reset anim state so you don't get locked if you get frozen.
-            base.PlayAnimation("Gesture, Override", "BufferEmpty");
-            base.PlayAnimation("Gesture, Additive", "BufferEmpty");
+            if (!changedState)
+            {
+                //This check will only work for the client.
+                base.PlayAnimation("Gesture, Override", "BufferEmpty");
+                base.PlayAnimation("Gesture, Additive", "BufferEmpty");
+            }
             if (animator)
             {
                 animator.SetFloat("FireSeekingShot.playbackRate", origPlaybackRate);
@@ -85,6 +90,7 @@ namespace SkillsReturns.SkillStates.Huntress
                 bool shouldExit = base.inputBank && !base.inputBank.skill1.down && base.fixedAge >= minDuration;
                 if (shouldExit)
                 {
+                    changedState = true;    //this is used to assist with anims, only works clientside.
                     this.outer.SetNextState(new HuntressChargeArrowFire()
                     {
                         chargeFraction = CalculateChargePercent()

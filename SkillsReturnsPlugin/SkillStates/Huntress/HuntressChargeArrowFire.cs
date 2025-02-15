@@ -23,6 +23,7 @@ namespace SkillsReturns.SkillStates.Huntress
         public static float maxDamageCoefficient = 9f;
         public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/StandardCrosshair.prefab").WaitForCompletion();
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
+        private Animator animator;
 
         public override void OnEnter()
         {
@@ -48,10 +49,11 @@ namespace SkillsReturns.SkillStates.Huntress
                 damageStat * Mathf.Lerp(minDamageCoefficient, maxDamageCoefficient, chargeFraction), Mathf.Lerp(minForce, maxForce, chargeFraction), base.RollCrit(), DamageColorIndex.Default, null, 180f, DamageTypeCombo.GenericPrimary);
             }
 
-            
+            base.PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", duration * 0.8f, duration * 0.2f/this.attackSpeedStat);
+            base.PlayCrossfade("Gesture, Additive", "FireSeekingShot", "FireSeekingShot.playbackRate", duration * 0.8f, duration * 0.2f/this.attackSpeedStat);
         }
 
-         public override void FixedUpdate()
+        public override void FixedUpdate()
         {
             base.FixedUpdate();
             if (fixedAge >= duration && isAuthority)
