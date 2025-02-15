@@ -22,6 +22,10 @@ namespace SkillsReturns.SkillStates.Huntress
         public static float minDamageCoefficient = 2f;
         public static float maxDamageCoefficient = 8f;
         public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/StandardCrosshair.prefab").WaitForCompletion();
+
+        public static NetworkSoundEventDef soundShoot;
+        public static NetworkSoundEventDef soundShootCharged;
+
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
         private Animator animator;
 
@@ -33,20 +37,19 @@ namespace SkillsReturns.SkillStates.Huntress
             StartAimMode(aimRay, 2f, false);
             crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
 
-            if (chargeFraction >= 1f)
-            {
-                Util.PlaySound("Play_SkillsReturns_Huntress_ChargeBow_ShootCharged", base.gameObject);
-               
-            }
-            else
-            {
-                Util.PlaySound("Play_SkillsReturns_Huntress_ChargeBow_Shoot", base.gameObject);
-            }
-
             if (isAuthority)
             {
                 ProjectileManager.instance.FireProjectile(ProjectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), gameObject,
                 damageStat * Mathf.Lerp(minDamageCoefficient, maxDamageCoefficient, chargeFraction), Mathf.Lerp(minForce, maxForce, chargeFraction), base.RollCrit(), DamageColorIndex.Default, null, 180f, DamageTypeCombo.GenericPrimary);
+
+                if (chargeFraction >= 1f)
+                {
+                    if (soundShootCharged) EffectManager.SimpleSoundEffect(soundShootCharged.index, base.transform.position, true);
+                }
+                else
+                {
+                    if (soundShoot) EffectManager.SimpleSoundEffect(soundShoot.index, base.transform.position, true);
+                }
             }
 
             base.PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", duration * 0.8f, duration * 0.2f/this.attackSpeedStat);

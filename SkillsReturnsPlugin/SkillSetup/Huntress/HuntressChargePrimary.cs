@@ -46,6 +46,9 @@ namespace SkillsReturns.SkillSetup.Huntress
         }
         protected override void CreateAssets()
         {
+            HuntressChargeArrowFire.soundShoot = Utilities.CreateNetworkSoundEventDef("Play_SkillsReturns_Huntress_ChargeBow_Shoot");
+            HuntressChargeArrowFire.soundShootCharged = Utilities.CreateNetworkSoundEventDef("Play_SkillsReturns_Huntress_ChargeBow_ShootCharged");
+
             GameObject chargeArrowProjectilePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/FMJRamping.prefab").WaitForCompletion().InstantiateClone("SkillsReturnsHuntressChargeArrowProjectile", true);
             ContentAddition.AddProjectile(chargeArrowProjectilePrefab);
 
