@@ -41,18 +41,18 @@ namespace SkillsReturns.SkillStates.Huntress
         {
             base.FixedUpdate();
 
+            spread = Mathf.Lerp(1f, 0f, CalculateChargePercent());
+            characterBody.SetSpreadBloom(spread, false);
+
+            if (!playedChargeSound && CalculateChargePercent() >= 1f)
+            {
+                playedChargeSound = true;
+                EffectManager.SimpleMuzzleFlash(ChargeEffectPrefab, gameObject, "Muzzle", false);
+                Util.PlaySound("Play_SkillsReturns_Huntress_ChargeBow_Ready", base.gameObject);
+            }
+
             if (isAuthority)
             {
-
-                if (!playedChargeSound && CalculateChargePercent() >= 1f)
-                {
-                    {
-                        EffectManager.SimpleMuzzleFlash(ChargeEffectPrefab, gameObject, "Muzzle", false);
-                    }
-                    Util.PlaySound("Play_SkillsReturns_Huntress_ChargeBow_Ready", base.gameObject);
-                    playedChargeSound = true;
-                }
-
                 bool shouldExit = base.inputBank && !base.inputBank.skill1.down && base.fixedAge >= minDuration;
                 if (shouldExit)
                 {
@@ -62,8 +62,6 @@ namespace SkillsReturns.SkillStates.Huntress
                     });
                     return;
                 }
-                spread = Mathf.Lerp(1f, 0f, CalculateChargePercent());
-                characterBody.SetSpreadBloom(spread, false);
             }
         }
 
