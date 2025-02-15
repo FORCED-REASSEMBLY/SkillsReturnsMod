@@ -20,7 +20,7 @@ namespace SkillsReturns.SkillStates.Huntress
         public float minForce = 500;
         public float maxForce = 2000;   
         public static float minDamageCoefficient = 2f;
-        public static float maxDamageCoefficient = 9f;
+        public static float maxDamageCoefficient = 8f;
         public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/StandardCrosshair.prefab").WaitForCompletion();
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
         private Animator animator;
