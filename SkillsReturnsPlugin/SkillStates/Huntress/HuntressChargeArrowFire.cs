@@ -31,9 +31,6 @@ namespace SkillsReturns.SkillStates.Huntress
             Ray aimRay = GetAimRay();
             StartAimMode(aimRay, 2f, false);
             crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
-            base.PlayAnimation("Gesture, Additive", "FireArrow", "FireArrow.playbackRate", duration * 2);
-            base.PlayAnimation("Gesture, Override", "FireArrow", "FireArrow.playbackRate", duration * 2);
-
 
             if (chargeFraction >= 1f)
             {
@@ -47,9 +44,7 @@ namespace SkillsReturns.SkillStates.Huntress
 
             if (isAuthority)
             {
-                
-                Vector3 aimDirection = aimRay.direction;
-                ProjectileManager.instance.FireProjectile(ProjectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimDirection), gameObject,
+                ProjectileManager.instance.FireProjectile(ProjectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), gameObject,
                 damageStat * Mathf.Lerp(minDamageCoefficient, maxDamageCoefficient, chargeFraction), Mathf.Lerp(minForce, maxForce, chargeFraction), base.RollCrit(), DamageColorIndex.Default, null, 180f, DamageTypeCombo.GenericPrimary);
             }
 
