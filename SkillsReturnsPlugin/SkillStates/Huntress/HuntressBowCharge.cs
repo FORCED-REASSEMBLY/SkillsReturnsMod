@@ -21,6 +21,7 @@ namespace SkillsReturns.SkillStates.Huntress
         public static GameObject ChargeEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Loader/ImpactLoaderFistSmall.prefab").WaitForCompletion();
         public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/StandardCrosshair.prefab").WaitForCompletion();
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
+        private Animator animator;
 
         public override void OnEnter()
         {
@@ -29,11 +30,23 @@ namespace SkillsReturns.SkillStates.Huntress
             chargeDuration = HuntressBowCharge.baseChargeDuration / this.attackSpeedStat;
             minDuration = HuntressBowCharge.baseMinDuration / this.attackSpeedStat;
             crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
+            StartAimMode(base.GetAimRay(), 2f, false);
+
+            animator = base.GetModelAnimator();
+            //FireSeekingShot
+            //FireSeekingShot.playbackRate
+            //Hacky: Multiply duration. Freeze animation at full charge.
+            base.PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", chargeDuration * 2.5f, chargeDuration * 0.2f / this.attackSpeedStat);
+            base.PlayCrossfade("Gesture, Additive", "FireSeekingShot", "FireSeekingShot.playbackRate", chargeDuration * 2.5f, chargeDuration * 0.2f / this.attackSpeedStat);
         }
 
         public override void OnExit()
         {
             if (crosshairOverrideRequest != null) crosshairOverrideRequest.Dispose();
+
+            //Reset anim state so you don't get locked if you get frozen.
+            base.PlayAnimation("Gesture, Override", "BufferEmpty");
+            base.PlayAnimation("Gesture, Additive", "BufferEmpty");
             base.OnExit();
         }
 
@@ -41,6 +54,7 @@ namespace SkillsReturns.SkillStates.Huntress
         {
             base.FixedUpdate();
 
+            StartAimMode(base.GetAimRay(), 2f, false);
             spread = Mathf.Lerp(1f, 0f, CalculateChargePercent());
             characterBody.SetSpreadBloom(spread, false);
 
@@ -49,6 +63,7 @@ namespace SkillsReturns.SkillStates.Huntress
                 playedChargeSound = true;
                 EffectManager.SimpleMuzzleFlash(ChargeEffectPrefab, gameObject, "Muzzle", false);
                 Util.PlaySound("Play_SkillsReturns_Huntress_ChargeBow_Ready", base.gameObject);
+                //TODO: Find a way to lock animation
             }
 
             if (isAuthority)
