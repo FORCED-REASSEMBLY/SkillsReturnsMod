@@ -50,7 +50,7 @@ namespace SkillsReturns.SkillStates.Huntress
                 
                 Vector3 aimDirection = aimRay.direction;
                 ProjectileManager.instance.FireProjectile(ProjectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimDirection), gameObject,
-                damageStat * Mathf.Lerp(minDamageCoefficient, maxDamageCoefficient, chargeFraction), Mathf.Lerp(minForce, maxForce, chargeFraction), base.RollCrit(), DamageColorIndex.Default, null, 180f);
+                damageStat * Mathf.Lerp(minDamageCoefficient, maxDamageCoefficient, chargeFraction), Mathf.Lerp(minForce, maxForce, chargeFraction), base.RollCrit(), DamageColorIndex.Default, null, 180f, DamageTypeCombo.GenericPrimary);
             }
 
             
