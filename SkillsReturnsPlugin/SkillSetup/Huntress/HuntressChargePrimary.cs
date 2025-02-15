@@ -30,7 +30,7 @@ namespace SkillsReturns.SkillSetup.Huntress
             skillDef.baseRechargeInterval = 0f;
             skillDef.beginSkillCooldownOnSkillEnd = false;
             skillDef.canceledFromSprinting = false;
-            skillDef.cancelSprintingOnActivation = true;
+            skillDef.cancelSprintingOnActivation = false;
             skillDef.fullRestockOnAssign = true;
             skillDef.interruptPriority = InterruptPriority.Skill;
             skillDef.isCombatSkill = true;
@@ -39,21 +39,29 @@ namespace SkillsReturns.SkillSetup.Huntress
             skillDef.requiredStock = 1;
             skillDef.stockToConsume = 0;
             skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("PierceIcon");
+            skillDef.keywordTokens = ["KEYWORD_AGILE"];
 
             LanguageAPI.Add(SkillLangTokenName, "Pierce");
-            LanguageAPI.Add(SkillLangTokenDesc, "Charge up a <style=cIsDamage>Piercing</style> arrow for <style=cIsDamage>200%-900%</style> damage.");
+            LanguageAPI.Add(SkillLangTokenDesc, "<style=cIsUtility>Agile</style>. Charge up a <style=cIsDamage>piercing</style> arrow for <style=cIsDamage>200%-800%</style> damage.");
         }
         protected override void CreateAssets()
         {
+            HuntressChargeArrowFire.soundShoot = Utilities.CreateNetworkSoundEventDef("Play_SkillsReturns_Huntress_ChargeBow_Shoot");
+            HuntressChargeArrowFire.soundShootCharged = Utilities.CreateNetworkSoundEventDef("Play_SkillsReturns_Huntress_ChargeBow_ShootCharged");
+
             GameObject chargeArrowProjectilePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/FMJRamping.prefab").WaitForCompletion().InstantiateClone("SkillsReturnsHuntressChargeArrowProjectile", true);
             ContentAddition.AddProjectile(chargeArrowProjectilePrefab);
 
             ProjectileController pc = chargeArrowProjectilePrefab.GetComponent<ProjectileController>();
             pc.ghostPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/Huntress/ArrowGhost.prefab").WaitForCompletion();
             pc.allowPrediction = true;
+
             ProjectileOverlapAttack poa = chargeArrowProjectilePrefab.GetComponent<ProjectileOverlapAttack>();
             poa.onServerHit = null;
             poa.impactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/OmniImpactVFXHuntress.prefab").WaitForCompletion();
+
+            ProjectileSimple ps = chargeArrowProjectilePrefab.GetComponent<ProjectileSimple>();
+            ps.lifetime = 5f;
            
             R2API.ContentAddition.AddProjectile(chargeArrowProjectilePrefab);
             HuntressChargeArrowFire.ProjectilePrefab = chargeArrowProjectilePrefab;
