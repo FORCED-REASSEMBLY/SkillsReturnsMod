@@ -29,7 +29,7 @@ namespace SkillsReturns.SkillSetup.Huntress
             skillDef.baseMaxStock = 1;
             skillDef.baseRechargeInterval = 0f;
             skillDef.beginSkillCooldownOnSkillEnd = false;
-            skillDef.canceledFromSprinting = true;
+            skillDef.canceledFromSprinting = false;
             skillDef.cancelSprintingOnActivation = true;
             skillDef.fullRestockOnAssign = true;
             skillDef.interruptPriority = InterruptPriority.Skill;
@@ -38,10 +38,10 @@ namespace SkillsReturns.SkillSetup.Huntress
             skillDef.rechargeStock = 1;
             skillDef.requiredStock = 1;
             skillDef.stockToConsume = 0;
-            skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("CombatKnifeIcon");
+            skillDef.icon = Assets.mainAssetBundle.LoadAsset<Sprite>("PierceIcon");
 
             LanguageAPI.Add(SkillLangTokenName, "Pierce");
-            LanguageAPI.Add(SkillLangTokenDesc, "<style=cIsDamage>Slow down</style> and charge up a <style=cIsDamage>Piercing</style> arrow for <style=cIsDamage>300%-900%</style> damage.");
+            LanguageAPI.Add(SkillLangTokenDesc, "Charge up a <style=cIsDamage>Piercing</style> arrow for <style=cIsDamage>200%-900%</style> damage.");
         }
         protected override void CreateAssets()
         {
@@ -51,13 +51,13 @@ namespace SkillsReturns.SkillSetup.Huntress
             ProjectileController pc = chargeArrowProjectilePrefab.GetComponent<ProjectileController>();
             pc.ghostPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Junk/Huntress/ArrowGhost.prefab").WaitForCompletion();
             pc.allowPrediction = true;
-
             ProjectileOverlapAttack poa = chargeArrowProjectilePrefab.GetComponent<ProjectileOverlapAttack>();
             poa.onServerHit = null;
             poa.impactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/OmniImpactVFXHuntress.prefab").WaitForCompletion();
            
             R2API.ContentAddition.AddProjectile(chargeArrowProjectilePrefab);
             HuntressChargeArrowFire.ProjectilePrefab = chargeArrowProjectilePrefab;
+            chargeArrowProjectilePrefab.transform.localScale = new Vector3(2, 2, 2);
 
         }
         protected override void RegisterStates()

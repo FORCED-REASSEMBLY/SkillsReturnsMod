@@ -6,6 +6,7 @@ using UnityEngine.AddressableAssets;
 using EntityStates.Huntress.HuntressWeapon;
 using RoR2.UI;
 using RoR2.Projectile;
+using System;
 
 namespace SkillsReturns.SkillStates.Huntress
 {
@@ -16,11 +17,11 @@ namespace SkillsReturns.SkillStates.Huntress
         private float duration;
         public float chargeFraction;
         public static GameObject ProjectilePrefab;
-        public float minForce = 1000;
+        public float minForce = 500;
         public float maxForce = 2000;   
         public static float minDamageCoefficient = 2f;
-        public static float maxDamageCoefficient = 10f;
-        public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressSnipeCrosshair.prefab").WaitForCompletion();
+        public static float maxDamageCoefficient = 9f;
+        public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/StandardCrosshair.prefab").WaitForCompletion();
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
 
         public override void OnEnter()
@@ -29,17 +30,30 @@ namespace SkillsReturns.SkillStates.Huntress
             duration = baseDuration / attackSpeedStat;
             Ray aimRay = GetAimRay();
             StartAimMode(aimRay, 2f, false);
-            Util.PlaySound("Play_huntress_R_snipe_shoot", base.gameObject);
             crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
+            base.PlayAnimation("Gesture, Additive", "FireArrow", "FireArrow.playbackRate", duration * 2);
+            base.PlayAnimation("Gesture, Override", "FireArrow", "FireArrow.playbackRate", duration * 2);
 
-            
+
+            if (chargeFraction >= 1f)
+            {
+                Util.PlaySound("Play_SkillsReturns_Huntress_ChargeBow_ShootCharged", base.gameObject);
+               
+            }
+            else
+            {
+                Util.PlaySound("Play_SkillsReturns_Huntress_ChargeBow_Shoot", base.gameObject);
+            }
 
             if (isAuthority)
             {
+                
                 Vector3 aimDirection = aimRay.direction;
                 ProjectileManager.instance.FireProjectile(ProjectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimDirection), gameObject,
-                damageStat * Mathf.Lerp(minDamageCoefficient, maxDamageCoefficient, chargeFraction), Mathf.Lerp(minForce, maxForce, chargeFraction), base.RollCrit(), DamageColorIndex.Default, null, 500f);
+                damageStat * Mathf.Lerp(minDamageCoefficient, maxDamageCoefficient, chargeFraction), Mathf.Lerp(minForce, maxForce, chargeFraction), base.RollCrit(), DamageColorIndex.Default, null, 180f);
             }
+
+            
         }
 
          public override void FixedUpdate()

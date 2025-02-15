@@ -21,7 +21,7 @@ namespace SkillsReturns.SkillStates.Bandit2.Dynamite
             duration = baseDuration / attackSpeedStat;
             Ray aimRay = GetAimRay();
             StartAimMode(aimRay, 2f, false);
-           PlayAnimation("Gesture, Additive", "SlashBlade", "SlashBlade.playbackRate", this.duration);
+            PlayAnimation("Gesture, Additive", "SlashBlade", "SlashBlade.playbackRate", this.duration);
             Util.PlaySound("Play_SkillsReturns_Bandit_Dynamite_Throw", base.gameObject);
             if (isAuthority)
             {
