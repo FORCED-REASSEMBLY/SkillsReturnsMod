@@ -18,7 +18,7 @@ namespace SkillsReturns.SkillStates.Huntress
         public float chargeDuration;
         public float spread;
         private bool playedChargeSound = false;
-        public static GameObject ChargeEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Loader/ImpactLoaderFistSmall.prefab").WaitForCompletion();
+        public static GameObject ChargeEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Loader/OmniImpactVFXLoader.prefab").WaitForCompletion();
         public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/StandardCrosshair.prefab").WaitForCompletion();
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
         private Animator animator;
