@@ -1,8 +1,5 @@
 ﻿using RoR2.Skills;
-using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Text;
 namespace SkillsReturns
 {
     internal static class ModCompat
@@ -10,6 +7,12 @@ namespace SkillsReturns
         internal static void Init()
         {
             AncientScepterCompat.Init();
+            LinearDamage.pluginLoaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.RiskyLives.LinearDamage");
+        }
+
+        internal static class LinearDamage
+        {
+            public static bool pluginLoaded;
         }
 
         internal static class AncientScepterCompat

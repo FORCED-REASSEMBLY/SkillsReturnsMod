@@ -4,8 +4,8 @@ using R2API;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
-using SkillsReturns.SharedHooks;
 using SkillsReturns.SkillStates.Bandit2.FlashBang;
+using SneedHooks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -42,15 +42,39 @@ namespace SkillsReturns.SkillSetup.Bandit2
         protected override void Hooks()
         {
             GlobalEventManager.onServerDamageDealt += ApplySmokescreenDebuff;
-            On.RoR2.HealthComponent.TakeDamage += ChangeDamageColor;
-            SharedHooks.ModifyFinalDamage.ModifyFinalDamageActions += AmplifyDamage;
+            if (ModCompat.LinearDamage.pluginLoaded)
+            {
+                SneedHooks.ModifyFinalDamage.ModifyFinalDamageActions += ModifyFinalDamage_Additive;
+            }
+            else
+            {
+                SneedHooks.ModifyFinalDamage.ModifyFinalDamageActions += ModifyFinalDamage;
+            }
             RecalculateStatsAPI.GetStatCoefficients += Bandit2SmokebombDebuffModifier;
         }
 
-        private void AmplifyDamage(ModifyFinalDamage.DamageMult damageMult, DamageInfo damageInfo, HealthComponent victim, CharacterBody victimBody)
+        private void ModifyFinalDamage(ModifyFinalDamage.DamageModifierArgs damageModifierArgs, DamageInfo damageInfo, HealthComponent victim, CharacterBody victimBody)
         {
-            if (victimBody.HasBuff(BlindingDebuff)) damageMult.value += 0.25f;
-            
+            if (victimBody.HasBuff(BlindingDebuff))
+            {
+                damageModifierArgs.damageMultFinal *= 1.25f;
+                if (damageInfo.damageColorIndex == DamageColorIndex.Default)
+                {
+                    damageInfo.damageColorIndex = DamageColorIndex.Poison;
+                }
+            }
+        }
+
+        private void ModifyFinalDamage_Additive(ModifyFinalDamage.DamageModifierArgs damageModifierArgs, DamageInfo damageInfo, HealthComponent victim, CharacterBody victimBody)
+        {
+            if (victimBody.HasBuff(BlindingDebuff))
+            {
+                damageModifierArgs.damageMultAdd += 0.25f;
+                if (damageInfo.damageColorIndex == DamageColorIndex.Default)
+                {
+                    damageInfo.damageColorIndex = DamageColorIndex.Poison;
+                }
+            }
         }
 
         private void ApplySmokescreenDebuff(DamageReport report)
@@ -60,18 +84,6 @@ namespace SkillsReturns.SkillSetup.Bandit2
             if (!report.damageInfo.HasModdedDamageType(SmokescreenDamageType)) return;
 
             report.victimBody.AddTimedBuff(BlindingDebuff, 3f);
-        }
-
-        private void ChangeDamageColor(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
-        {
-            //Always use a NetworkServer.active check when doing stuff with TakeDamage
-            if (NetworkServer.active && self.body && self.body.HasBuff(BlindingDebuff) && damageInfo.damageColorIndex == DamageColorIndex.Default)
-            {
-                damageInfo.damageColorIndex = DamageColorIndex.Poison;
-            }
-            
-            //ALWAYS remember to call orig so that the original function can run.
-            orig(self, damageInfo);
         }
 
        

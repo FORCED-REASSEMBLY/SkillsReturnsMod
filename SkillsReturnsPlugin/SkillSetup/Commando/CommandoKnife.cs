@@ -3,13 +3,9 @@ using RoR2;
 using R2API;
 using RoR2.Skills;
 using SkillsReturns.SkillStates.Commando;
-using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
-using MonoMod.Cil;
-using Mono.Cecil.Cil;
-using SkillsReturns.SharedHooks;
+using SneedHooks;
 
 namespace SkillsReturns.SkillSetup.Commando
 {
@@ -37,13 +33,39 @@ namespace SkillsReturns.SkillSetup.Commando
         protected override void Hooks()
         {
             GlobalEventManager.onServerDamageDealt += ApplyKnifeDebuff;
-            On.RoR2.HealthComponent.TakeDamage += ChangeDamageColor;
-            SharedHooks.ModifyFinalDamage.ModifyFinalDamageActions += AmplifyDamage;
+
+            if (ModCompat.LinearDamage.pluginLoaded)
+            {
+                SneedHooks.ModifyFinalDamage.ModifyFinalDamageActions += ModifyFinalDamage_Additive;
+            }
+            else
+            {
+                SneedHooks.ModifyFinalDamage.ModifyFinalDamageActions += ModifyFinalDamage;
+            }
         }
 
-        private void AmplifyDamage(ModifyFinalDamage.DamageMult damageMult, DamageInfo damageInfo, HealthComponent victim, CharacterBody victimBody)
+        private void ModifyFinalDamage(ModifyFinalDamage.DamageModifierArgs damageModifierArgs, DamageInfo damageInfo, HealthComponent victim, CharacterBody victimBody)
         {
-            if (victimBody.HasBuff(knifeDebuff)) damageMult.value += 0.5f;
+            if (victimBody.HasBuff(knifeDebuff))
+            {
+                damageModifierArgs.damageMultFinal *= 1.5f;
+                if (damageInfo.damageColorIndex == DamageColorIndex.Default)
+                {
+                    damageInfo.damageColorIndex = DamageColorIndex.SuperBleed;
+                }
+            }
+        }
+
+        private void ModifyFinalDamage_Additive(ModifyFinalDamage.DamageModifierArgs damageModifierArgs, DamageInfo damageInfo, HealthComponent victim, CharacterBody victimBody)
+        {
+            if (victimBody.HasBuff(knifeDebuff))
+            {
+                damageModifierArgs.damageMultAdd += 0.5f;
+                if (damageInfo.damageColorIndex == DamageColorIndex.Default)
+                {
+                    damageInfo.damageColorIndex = DamageColorIndex.SuperBleed;
+                }
+            }
         }
 
         private void ApplyKnifeDebuff(DamageReport report)
@@ -53,18 +75,6 @@ namespace SkillsReturns.SkillSetup.Commando
             if (!report.damageInfo.HasModdedDamageType(knifeDamageType)) return;
 
             report.victimBody.AddTimedBuff(knifeDebuff, 5f);
-        }
-
-        private void ChangeDamageColor(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
-        {
-            //Always use a NetworkServer.active check when doing stuff with TakeDamage
-            if (NetworkServer.active && self.body && self.body.HasBuff(knifeDebuff) && damageInfo.damageColorIndex == DamageColorIndex.Default)
-            {
-                damageInfo.damageColorIndex = DamageColorIndex.SuperBleed;
-            }
-
-            //ALWAYS remember to call orig so that the original function can run.
-            orig(self, damageInfo);
         }
 
         protected override void CreateSkillDef()

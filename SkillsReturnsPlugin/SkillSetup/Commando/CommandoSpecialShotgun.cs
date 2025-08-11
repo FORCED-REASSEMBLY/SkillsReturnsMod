@@ -1,15 +1,9 @@
 ﻿using EntityStates;
-using RoR2;
 using R2API;
 using RoR2.Skills;
 using SkillsReturns.SkillStates.Commando;
-using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
-using MonoMod.Cil;
-using Mono.Cecil.Cil;
-using SkillsReturns.SharedHooks;
 
 
 namespace SkillsReturns.SkillSetup.Commando
