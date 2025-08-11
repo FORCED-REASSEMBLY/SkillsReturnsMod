@@ -13,13 +13,15 @@ namespace SkillsReturns
     [BepInDependency(PrefabAPI.PluginGUID)]
     [BepInDependency(SoundAPI.PluginGUID)]
     [BepInDependency(R2API.R2API.PluginGUID)]
-
+    [BepInDependency(SoundAPI.PluginGUID)]
+    [BepInDependency("com.RiskyLives.SneedHooks")]
+    [BepInDependency("com.RiskyLives.LinearDamage", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
 
     [BepInPlugin(
         "com.Forced_Reassembly.SkillsReturns",
         "Skills Returns",
-        "1.4.3")]
+        "1.4.4")]
     public class SkillsReturnsPlugin : BaseUnityPlugin
     {
         public static BepInEx.Configuration.ConfigFile configFile;
@@ -29,9 +31,6 @@ namespace SkillsReturns
             configFile = base.Config;
             ModCompat.Init();
             Assets.Init();
-
-            IL.RoR2.HealthComponent.TakeDamageProcess += SharedHooks.ModifyFinalDamage.ModfyFinalDamageHook;
-
             AddToAssembly();
         }
 
