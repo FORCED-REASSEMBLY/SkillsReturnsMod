@@ -204,6 +204,7 @@ namespace SkillsReturns.SkillSetup.Bandit2
             dynamiteProjectile.AddComponent<AssignDynamiteTeamFilter>();
             AddDynamiteHurtbox(dynamiteProjectile);
 
+            R2API.ContentAddition.AddBody(dynamiteProjectile);
             R2API.ContentAddition.AddProjectile(dynamiteProjectile);
             ThrowDynamite.projectilePrefab = dynamiteProjectile;
         }
